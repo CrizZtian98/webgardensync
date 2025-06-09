@@ -1,0 +1,31 @@
+.header{
+    background-color: green;
+    color: white;
+    padding: 20px;
+
+
+}
+
+.nav-list{
+    display: flex;
+    
+    .link{
+        color: white;
+        text-decoration: none;
+        margin-right: 3rem;
+        
+    }
+
+
+}
+
+.contenedor-perfil{
+    text-align: end;
+    margin-top: -1rem;
+
+}
+
+.perfil{
+    text-decoration: none;
+    color: white;
+}
