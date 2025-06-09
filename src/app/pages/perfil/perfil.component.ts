@@ -4,12 +4,12 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-perfil',
   standalone: true,
-  imports: [RouterLink, HeaderComponent,FooterComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  imports: [RouterLink, HeaderComponent, FooterComponent],
+  templateUrl: './perfil.component.html',
+  styleUrl: './perfil.component.css'
 })
-export class LoginComponent {
+export class PerfilComponent {
 
 }
