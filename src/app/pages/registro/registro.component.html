@@ -1,1 +1,33 @@
-<p>registro works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<app-header></app-header>
+<body>
+    <mat-card class="card">
+      <mat-card-header class="card-header">
+        <mat-card-title >¡REGISTRATE!</mat-card-title>
+        <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
+      </mat-card-header>
+      <mat-card-content class="contenido">
+        <form class="formulario"> 
+          <p>Crea tu cuenta para ser parte de nosotros</p>
+          <input type="text" placeholder="Nombre">
+          <input type="email" placeholder="Correo">
+          <input type="password" placeholder="Contraseña">
+          <input type="password" placeholder="Confirmar contraseña">
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="boton-container">
+        <button class="boton" mat-button>Registrar</button>
+        <p>¿Ya tienes una cuenta?<a routerLink="/login">¡Inicia sesión!</a></p>
+      </mat-card-actions>
+    </mat-card>
+    
+</body>
+<!--<app-footer></app-footer>-->
+
+</html>
