@@ -70,10 +70,12 @@
         margin-left: 0.5rem;
         text-decoration: none;
         color: rgb(30, 226, 30);
+        transition: transform 0.3s;
     }
 
     a:hover{
         color: rgb(134, 199, 37);
+        transform: translateY(-3px);
     }
 }
 
@@ -89,8 +91,18 @@
     margin-top: 10px;
     cursor: pointer;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: transform 0.3s;
 }
 
 .boton:hover{
     background: rgb(134, 199, 37);
+    transform: translateY(-3px);
+}
+
+#botones{
+    transition: transform 0.3s;
+}
+
+#botones_hover{
+    transform: translateY(-3px);
 }

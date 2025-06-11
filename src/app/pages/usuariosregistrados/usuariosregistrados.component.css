@@ -25,6 +25,7 @@
     max-height: 100%;
     background-color: rgba(247, 224, 166, 0.521);
     margin-bottom: 3rem;
+    transition: transform 0.3s;
     i{
         text-align: end;
         color: red;
@@ -35,6 +36,10 @@
         z-index: 10;
         cursor: pointer;
     }
+}
+
+.card:hover{
+    transform: translateY(-5px);
 }
 
 .card-header{
@@ -54,6 +59,7 @@
         margin-bottom: 0.3rem;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: clamp(12px, 2vw, 20px);
+        color: rgb(16, 130, 16);
     }
 }
 
@@ -65,6 +71,7 @@
         color: white;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: clamp(12px, 2vw, 20px);
+        color: rgb(16, 130, 16);
     }
     p{
         color: rgb(255, 255, 255);
@@ -94,4 +101,21 @@
     input:hover{
        background-color: #fff;
     }
+}
+
+button[mat-icon-button] {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: red;
+}
+
+::ng-deep .mat-menu-panel {
+  background-color: #d6d0d0 !important;
+  color: white !important;
+}
+
+.class-menu{
+    background: blue;
+    color: blue;
 }

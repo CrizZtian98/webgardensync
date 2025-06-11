@@ -4,12 +4,53 @@
     </div>
   <div class="contenedor">
     <mat-card class="card">
+        <button mat-icon-button [matMenuTriggerFor]="menu2">
+            <i class="fa-solid fa-ban"></i>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item>
+            <i class="fa-solid fa-user-slash"></i> Banear usuario
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+        </mat-menu>
+
         <mat-card-header class="card-header">
             <mat-card-title >Nombre</mat-card-title>
             <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content class="contenido">
             <p>Se me murió el tulipán NOOOOOOOO</p>
+        </mat-card-content>
+    </mat-card>
+        <mat-card class="card">
+        <button mat-icon-button [matMenuTriggerFor]="menu2">
+            <i class="fa-solid fa-ban"></i>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item>
+            <i class="fa-solid fa-user-slash"></i> Banear usuario
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+        </mat-menu>
+
+        <mat-card-header class="card-header">
+            <mat-card-title >Nombre</mat-card-title>
+            <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
+        </mat-card-header>
+        <mat-card-content class="contenido">
+            <p>Y a mí la lechuga NOOOOOOOOsasdasdasdasdadasdasdasdasdadasdasdasdsdsdsdsadadasdaddwwwwwwww2wewqeqeqweqweweqwewewesssssssssssssssssss</p>
         </mat-card-content>
     </mat-card>
   </div>

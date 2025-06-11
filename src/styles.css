@@ -1,3 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
 ul{
     margin: 0;
     padding: 0;
@@ -7,13 +15,14 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    display: flex;
     flex-direction: column;
     background-image: url('assets/madera.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    
 }
+
 
 app-root {
     display: flex;
@@ -28,9 +37,9 @@ app-root {
 .header{
     background-image: url('assets/primerplanohojas.jpg');
     background-size: contain;
-    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
+
 }
 
 .footer{
@@ -40,5 +49,21 @@ app-root {
     background-size: 100%;
     background-repeat: no-repeat;
     background-position:top;
-    
+    box-shadow:0 0 10px 5px black;
+    animation: shape2 5s linear infinite;
 }
+
+@keyframes shape2 {
+    0%, 100%{
+        border-radius: 40% 60% 0% 0% / 60% 60% 60% 50%;
+    }
+
+    33%{
+        border-radius: 70% 30% 0% 0% / 30% 30% 70% 70%;
+    }
+
+    66%{
+        border-radius: 100% 60% 0% 0% / 100% 100% 60% 60%;
+    }
+}
+

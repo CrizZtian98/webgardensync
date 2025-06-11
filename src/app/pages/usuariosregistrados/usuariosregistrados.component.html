@@ -5,7 +5,23 @@
     </div>
   <div class="contenedor">
     <mat-card class="card">
-        <i class="fa-solid fa-ban"></i>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="fa-solid fa-ban"></i>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+            <i class="fa-solid fa-user-slash"></i> Banear usuario
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+        </mat-menu>
+
         <mat-card-header class="card-header">
             <p class="id">ID: 01</p>
             <p class="nombre">Nombre de usuario</p>
@@ -18,15 +34,32 @@
         </mat-card-content>
     </mat-card>
     <mat-card class="card">
-        <i class="fa-solid fa-ban"></i>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="fa-solid fa-ban"></i>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+            <i class="fa-solid fa-user-slash"></i> Banear usuario
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+            </button>
+            <button mat-menu-item>
+            <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+        </mat-menu>
+
         <mat-card-header class="card-header">
             <p class="id">ID: 01</p>
             <p class="nombre">Nombre de usuario</p>
-            <p>Adolf Hater</p>
+            <p>Sebita</p>
+            <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content class="contenido">
             <mat-card-title >Correo</mat-card-title>
-            <p>YoelSutro4Kgmail.com</p>
+            <p>MataperrosKgmail.com</p>
         </mat-card-content>
     </mat-card>
   </div>
