@@ -1,0 +1,68 @@
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.contenido-superior{
+    text-align: center;
+    color: white;
+    margin-top: -3rem;
+    margin-bottom: 3rem;
+    font-size: clamp(14px, 2vw, 25px);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration:underline;
+}
+
+.card{
+    display: flex;
+    width: 600px;
+    min-width: 264px;
+    max-width: 90%;
+    min-height: 150px;
+    max-height: 100%;
+    background-color: rgba(247, 224, 166, 0.521);
+}
+
+.card-header{
+    text-align: start;
+    justify-content: start;
+    color: white;
+    mat-card-title{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: clamp(12px, 2vw, 20px);
+    }
+}
+
+.contenido{
+    display: flex;
+    justify-content: start;
+    p{
+        color: rgb(255, 255, 255);
+        font-size: clamp(12px, 2vw, 18px);
+    }
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; 
+
+    input{
+        background-color: #eeeeee97;
+        color: black;
+        border: none;
+        margin: 8px 0;
+        padding: 10px 30px;
+        font-size: 13px;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    input:hover{
+       background-color: #fff;
+    }
+}

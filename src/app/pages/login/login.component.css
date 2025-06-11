@@ -1,13 +1,8 @@
-body{
+.contenedor{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('assets/tigre.jpg');
-    background-size: cover;        /* para cubrir toda la pantalla */
-    background-repeat: no-repeat;  /* para que no se repita */
-    background-position: center;   /* centrada */
-    margin: 0;                     /* eliminar márgenes por defecto */
-    height: 100vh; 
+    height: 100%;
 }
 
 .card-header{
@@ -22,11 +17,11 @@ body{
 
 .card{
     width: 400px;
+    min-width: 264px;
     max-width: 100%;
     min-height: 150px;
     max-height: 100%;
-    background-color: rgba(128, 128, 128, 0.474);
-    margin-top: -1rem;
+    background-color: rgba(247, 224, 166, 0.234);
 }
 
 .contenido{
@@ -44,13 +39,13 @@ body{
     gap: 10px; 
 
     input{
-        background-color: #eee;
+        background-color: #eeeeee97;
+        color: black;
         border: none;
         margin: 8px 0;
-        padding: 10px 15px;
+        padding: 10px 30px;
         font-size: 13px;
         border-radius: 8px;
-        width: 100%;
         outline: none;
     }
 
@@ -68,12 +63,13 @@ body{
         color: white;
         margin-top: 1rem;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 2vh;
     }
 
     a{
         margin-left: 0.5rem;
         text-decoration: none;
-        color: rgb(3, 165, 3);
+        color: rgb(30, 226, 30);
     }
 
     a:hover{
@@ -82,7 +78,7 @@ body{
 }
 
 .boton{
-    background-color: rgba(0, 128, 0, 0.612);
+    background-color: rgb(0, 128, 0);
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;

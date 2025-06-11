@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 <app-header></app-header>
-<body>
+  <div class="contenedor">
     <mat-card class="card">
       <mat-card-header class="card-header">
         <mat-card-title >¡INICIA SESIÓN!</mat-card-title>
@@ -15,8 +8,8 @@
       <mat-card-content class="contenido">
         <form class="formulario"> 
           <p>Ingresa tus credenciales de usuario</p>
-          <input type="email" placeholder="Correo">
-          <input type="password" placeholder="Contraseña">
+          <input type="email" placeholder="Ingrese su correo">
+          <input type="password" placeholder="Ingrese su contraseña">
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">
@@ -24,9 +17,7 @@
         <p>Si no tienes cuenta<a routerLink="/registro">¡Registrate!</a></p>
       </mat-card-actions>
     </mat-card>
-    
-</body>
-<!--<app-footer></app-footer>-->
+  </div>
+<app-footer></app-footer>
 
-</html>
 

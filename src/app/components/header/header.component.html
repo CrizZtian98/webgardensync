@@ -2,17 +2,20 @@
     <nav>
         <ul class="nav-list">
             <li>
-                <a routerLink="/" class="link">Home</a>
+                <a class="link">
+                    <i class="fa-solid fa-user" routerLink="/login"></i>
+                </a>
             </li>
             <li>
-                <a routerLink="/registro" class="link">Registro</a>
-            </li>         
+                <a routerLink="/" class="link">Home</a>
+            </li>
+
+            <div class="contenedor-perfil">
+                <a routerLink="/usuariosregistrados" class="link">Usuarios</a> 
+                <a routerLink="/publicaciones" class="link">Publicaciones</a> 
+
+            </div>
         </ul>
-        <div class="contenedor-perfil">
-            <a  class="perfil">
-                <i class="fa-solid fa-user" routerLink="/login"></i>
-            </a>
-        </div>  
     </nav>
 </header>
 

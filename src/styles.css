@@ -1,11 +1,44 @@
-body{
-    margin: 0;
-}
-
 ul{
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-image: url('assets/madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor {
+    flex: 1;
+}
+
+
+.header{
+    background-image: url('assets/primerplanohojas.jpg');
+    background-size: contain;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.footer{
+    position: relative;
+    background-image: url('assets/tierraoscura2.jpg');
+    background-size: contain;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position:top;
+    
+}
