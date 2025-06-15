@@ -34,7 +34,7 @@
 .boton-descarga .btn {
     text-decoration: none;
     color: white;
-    background-color: #068b407e;
+    background-color: rgba(0, 0, 0, 0.522);
     padding: 1rem 2rem;
     margin: 0.5rem;
     border-radius: 30px;
@@ -79,6 +79,7 @@
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0px 0px 10px 5px green;
 }
 
 .card img {

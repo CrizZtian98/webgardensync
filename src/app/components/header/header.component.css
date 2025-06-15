@@ -82,20 +82,20 @@ perfil{
 }
 
 .nombre-app{
-    position: relative;
+    
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: rgb(187, 246, 187);
     bottom: 0.5rem;
     right: 3rem;
     z-index: 10;
-    font-size: clamp(12px, 2vw, 18px);
+    font-size: clamp(8px, 2vw, 18px);
 }
 
 .logo{
     position: absolute;
-    width: 5rem;
-    height: 5rem;
-    top: 1rem;
-    right: 1.5rem;
+    width: 5.5;
+    height: 5.5rem;
+    top: .5rem;
+    right: .5rem;
     z-index: 10;
 }

@@ -30,6 +30,8 @@
           </div>
 
           <input formControlName="contrasena" type="password" placeholder="Contraseña">
+          <!--<label class="especificaciones-contrasena">Nota: La contraseña debe contener al menos 
+              una mayúscula, un número, un carácter especial y tener un mínimo de 8 caracteres.</label>-->
           <div *ngIf="contrasena?.invalid && (contrasena?.touched || submitted)" class="error-message">
             <div *ngIf="contrasena?.errors?.['required']" class="contrasena-obligatoria">
               La contraseña es obligatoria.

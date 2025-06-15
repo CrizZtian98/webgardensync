@@ -71,6 +71,7 @@
         margin-left: 0.5rem;
         text-decoration: none;
         color: rgb(30, 226, 30);
+        
     }
 
     a:hover{
@@ -90,10 +91,12 @@
     margin-top: 10px;
     cursor: pointer;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: transform 0.3s;
 }
 
 .boton:hover{
     background: rgb(134, 199, 37);
+    transform: translateY(-3px);
 }
 
 
@@ -104,10 +107,10 @@
     margin-left: -3.7rem;
     text-align: start;
     text-shadow:
-        -.4px -.4px 0 red,
-        .4px -.4px 0 red,
-        -.4px  .4px 0 red,
-        .4px  .4px 0 red;
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
 }
 
 .error-message small {
@@ -121,10 +124,10 @@
     margin-left: 8.5rem;
     margin-right: 5rem;
     text-shadow:
-        -.4px -.4px 0 red,
-        .4px -.4px 0 red,
-        -.4px  .4px 0 red,
-        .4px  .4px 0 red;
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
 }
 
 .error-nombre{
@@ -135,10 +138,10 @@
     margin-right: 5rem;
     text-align: start;
     text-shadow:
-        -.4px -.4px 0 red,
-        .4px -.4px 0 red,
-        -.4px  .4px 0 red,
-        .4px  .4px 0 red; 
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
 }
 
 .correo-obligatorio{
@@ -148,10 +151,10 @@
     margin-left: -.6rem;
     text-align: start;
     text-shadow:
-        -.4px -.4px 0 red,
-        .4px -.4px 0 red,
-        -.4px  .4px 0 red,
-        .4px  .4px 0 red;   
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red; 
 }
 
 .contrasena-obligatoria{
@@ -161,10 +164,10 @@
     text-align: start;
     margin-left: 1.6rem;
     text-shadow:
-        -.4px -.4px 0 red,
-        .4px -.4px 0 red,
-        -.4px  .4px 0 red,
-        .4px  .4px 0 red;
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
 }
 
 .contrasena-coincidencia{
@@ -174,8 +177,24 @@
     text-align: start;
     margin-left: 2.3rem;
     text-shadow:
-        -.4px -.4px 0 red,
-        .4px -.4px 0 red,
-        -.4px  .4px 0 red,
-        .4px  .4px 0 red;
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
 }
+
+/*.especificaciones-contrasena{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 11px;
+    text-align: start;
+    margin-left: 4.8rem;
+    margin-right: 5rem;
+    margin-top: -1rem;
+    line-height: 1.5;
+    text-shadow:
+        -.3px -.3px 0 green,
+        .3px -.3px 0 green,
+        -.3px  .3px 0 green,
+        .3px  .3px 0 green;
+}*/

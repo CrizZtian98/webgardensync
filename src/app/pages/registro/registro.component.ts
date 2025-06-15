@@ -61,10 +61,10 @@ export class RegistroComponent {
   }
 
   confirmarContrasenaValidator(control: FormGroup) {
-    const contrasenaa = control.get('contrasenaa');
+    const contrasena = control.get('contrasena');
     const confirmarContrasena = control.get('confirmarContrasena');
 
-    if (contrasenaa?.value !== confirmarContrasena?.value) {
+    if (contrasena?.value !== confirmarContrasena?.value) {
       confirmarContrasena?.setErrors({ noCoincide: true });
     } else {
       confirmarContrasena?.setErrors(null);
