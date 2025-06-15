@@ -6,16 +6,52 @@
         <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
       </mat-card-header>
       <mat-card-content class="contenido">
-        <form class="formulario"> 
+        <form class="formulario" [formGroup]="formularioRegistro" (keyup.enter)="registrar()"> 
           <p>Crea tu cuenta para ser parte de nosotros</p>
-          <input type="text" placeholder="Nombre">
-          <input type="email" placeholder="Correo electrónico">
-          <input type="password" placeholder="Contraseña">
-          <input type="password" placeholder="Confirmar contraseña">
+          <input formControlName="nombre" type="text" placeholder="Nombre">
+          <div *ngIf="nombre?.invalid && (nombre?.touched || submitted)" class="error-message">
+            <div *ngIf="nombre?.errors?.['required']">
+              El nombre es obligatorio.
+            </div>
+
+            <div *ngIf="nombre?.errors?.['minlength']" class="error-nombre">
+              El nombre debe tener un mínimo de 6 caracteres.
+            </div>
+          </div>
+
+          <input formControlName="correo" type="email" placeholder="Correo electrónico">
+          <div *ngIf="correo?.invalid && (correo?.touched || submitted)" class="error-message">
+            <div *ngIf="correo?.errors?.['required']" class="correo-obligatorio">
+              El correo es obligatorio.
+            </div>
+            <div *ngIf="correo?.errors?.['pattern']">
+              El correo debe ser válido.
+            </div>
+          </div>
+
+          <input formControlName="contrasena" type="password" placeholder="Contraseña">
+          <div *ngIf="contrasena?.invalid && (contrasena?.touched || submitted)" class="error-message">
+            <div *ngIf="contrasena?.errors?.['required']" class="contrasena-obligatoria">
+              La contraseña es obligatoria.
+            </div>
+            <div *ngIf="contrasena?.errors?.['pattern']" class="error-contrasena">
+              La contraseña debe contener al menos una mayúscula, un número, un carácter especial y tener un mínimo de 8 caracteres.
+            </div>
+          </div>
+
+          <input formControlName="confirmarContrasena" type="password" placeholder="Confirmar contraseña">
+          <div *ngIf="confirmarContrasena?.invalid && (confirmarContrasena?.dirty || confirmarContrasena?.touched || submitted)" class="error-message">
+            <div *ngIf="confirmarContrasena?.errors?.['required']">
+              El campo de confirmación es obligatorio.
+            </div>
+            <div *ngIf="confirmarContrasena?.errors?.['noCoincide']" class="contrasena-coincidencia">
+              Las contraseñas no coinciden.
+            </div>
+          </div>
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">
-        <button class="boton" mat-button>Registrar</button>
+        <button class="boton" (click)="registrar()" mat-button>Registrar</button>
         <p>¿Ya tienes una cuenta?<a routerLink="/login">¡Inicia sesión!</a></p>
       </mat-card-actions>
     </mat-card>

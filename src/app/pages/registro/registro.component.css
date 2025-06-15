@@ -95,3 +95,87 @@
 .boton:hover{
     background: rgb(134, 199, 37);
 }
+
+
+.error-message {
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-top: -1rem;
+    margin-left: -3.7rem;
+    text-align: start;
+    text-shadow:
+        -.4px -.4px 0 red,
+        .4px -.4px 0 red,
+        -.4px  .4px 0 red,
+        .4px  .4px 0 red;
+}
+
+.error-message small {
+    font-weight: bold;
+}
+
+.error-contrasena{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-left: 8.5rem;
+    margin-right: 5rem;
+    text-shadow:
+        -.4px -.4px 0 red,
+        .4px -.4px 0 red,
+        -.4px  .4px 0 red,
+        .4px  .4px 0 red;
+}
+
+.error-nombre{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-left: 8.5rem;
+    margin-right: 5rem;
+    text-align: start;
+    text-shadow:
+        -.4px -.4px 0 red,
+        .4px -.4px 0 red,
+        -.4px  .4px 0 red,
+        .4px  .4px 0 red; 
+}
+
+.correo-obligatorio{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-left: -.6rem;
+    text-align: start;
+    text-shadow:
+        -.4px -.4px 0 red,
+        .4px -.4px 0 red,
+        -.4px  .4px 0 red,
+        .4px  .4px 0 red;   
+}
+
+.contrasena-obligatoria{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    text-align: start;
+    margin-left: 1.6rem;
+    text-shadow:
+        -.4px -.4px 0 red,
+        .4px -.4px 0 red,
+        -.4px  .4px 0 red,
+        .4px  .4px 0 red;
+}
+
+.contrasena-coincidencia{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    text-align: start;
+    margin-left: 2.3rem;
+    text-shadow:
+        -.4px -.4px 0 red,
+        .4px -.4px 0 red,
+        -.4px  .4px 0 red,
+        .4px  .4px 0 red;
+}
