@@ -5,11 +5,12 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { IonButton } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, HeaderComponent,FooterComponent,ReactiveFormsModule,
+  imports: [IonButton, RouterLink, HeaderComponent,FooterComponent,ReactiveFormsModule,
     MatCardModule,FormsModule
   ],
   templateUrl: './login.component.html',
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit{
       if (user) {
         if (!user.isAnonymous) {
           console.log('Usuario con cuenta, redirigiendo a home:', user);
-          this.router.navigate(['/']);
+          this.router.navigate(['/h']);
         } else {
           console.log('Usuario anónimo, puede registrarse o iniciar sesión');
         }
@@ -118,5 +119,16 @@ export class LoginComponent implements OnInit{
       console.error('Error en login invitado:', error);
     }
   }
+
+
+    async cerrarSesion() {
+      try {
+        await this.authService.logout();
+        console.log('Sesión cerrada correctamente');
+        this.router.navigate(['/login']);
+      } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+      }
+    }
 
 }

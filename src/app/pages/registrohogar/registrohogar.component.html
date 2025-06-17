@@ -7,12 +7,12 @@
       </mat-card-header>
       <mat-card-content class="contenido">
         <form class="formulario"> 
-          <p>Ingresa el nombre de tu hogar donde monitoriarás tus plantas:</p>
-          <input type="text" placeholder="Ingrese su correo"  requiered>
+          <p>Ingresa el nombre de tu hogar, lugar donde residen sus plantas.</p>
+          <input name="nombre" type="text" placeholder="Nombre de su hogar" [(ngModel)]="nombreHogar" requiered>
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">
-        <button class="boton"  mat-button>Iniciar sesión</button>
+        <button class="boton" (click)="registrarHogar()" mat-button>¡Registrar!</button>
       </mat-card-actions>
     </mat-card>
   </div>

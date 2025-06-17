@@ -98,12 +98,13 @@ export class RegistroComponent {
 
     try {
       const { nombre, correo, contrasena } = this.formularioRegistro.value;
+      await this.firebaseService['firebaseInitService'].whenReady();
       // Llamamos a registro() que hace la vinculación si hay sesión anónima
       const uid = await this.firebaseService.registro(nombre, correo, contrasena);
       console.log('Usuario registrado con UID:', uid);
 
       // Aquí navegas solo después del registro correcto
-      this.router.navigate(['/login']);
+      this.router.navigate(['registrohogar']);
     } catch (error: any) {
       this.errorMessage = error.message; // Mostrar mensaje de error
       console.error('Error de registro:', error.message);

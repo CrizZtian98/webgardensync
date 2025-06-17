@@ -1,26 +1,39 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, increment, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, increment, query, orderBy, Firestore } from 'firebase/firestore';
 import { FirebaseInitService } from './firebase-init.service';  // Importa el servicio
 import { createUserWithEmailAndPassword, Auth, EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import { FirebaseStorage } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  private db;
-  private auth: Auth;
-  private storage;
+  private db!: Firestore;
+  private auth!: Auth;
+  private storage!: FirebaseStorage;
 
   constructor(private firebaseInitService: FirebaseInitService) {
-    this.db = firebaseInitService.db;
-    this.auth = firebaseInitService.auth;
-    this.storage = firebaseInitService.storage;
+
   }
+
+  private async ensureInitialized() {
+    await this.firebaseInitService.whenReady();
+    this.db = this.firebaseInitService.db;
+    this.auth = this.firebaseInitService.auth;
+    this.storage = this.firebaseInitService.storage;
+
+    if (!this.auth) throw new Error('Firebase Auth no está disponible nooooo');
+  }
+
 
   // Método para registrar usuario
   async registro(nombreCompleto: string, correo: string, contraseña: string) {
+  await this.ensureInitialized(); // ← MUY IMPORTANTE
   try {
+    await this.firebaseInitService.whenReady();
+    
+    if (!this.auth) throw new Error('Firebase Auth no está disponible');
     const currentUser = this.auth.currentUser;
 
     // Crear credenciales con email y contraseña
