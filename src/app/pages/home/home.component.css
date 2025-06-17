@@ -107,6 +107,7 @@
 .how-it-works h2 {
   color: white;
   margin-bottom: 1rem;
+  font-size: clamp(20px, 3vw, 30px);
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 

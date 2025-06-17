@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { FirebaseService } from '../../../firebase.service';
 
 @Component({
   selector: 'app-registro',
@@ -19,8 +21,9 @@ export class RegistroComponent {
   submitted = false;
   correoPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   passwordPattern = '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,}$';
+  errorMessage: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private authService: AuthService,private router: Router,private firebaseService: FirebaseService) {
 
     this.formularioRegistro = this.fb.group({
         'nombre': new FormControl('', [
@@ -42,6 +45,18 @@ export class RegistroComponent {
         ]),
         
     },{ validators: this.confirmarContrasenaValidator});
+  }
+
+  ngOnInit() {
+    this.authService.getCurrentUser().subscribe((user) => {
+      if (user) {
+        console.log('Usuario ya logueado', user);
+        this.router.navigate(['/home']);
+      } else {
+        console.log('No hay usuario logueado');
+      }
+    });
+
   }
 
   get nombre() {
@@ -74,17 +89,25 @@ export class RegistroComponent {
   }
   
   async registrar() {
-    this.submitted = true; 
-  
+    console.log('registrar llamado');
+    this.submitted = true;
 
     if (this.formularioRegistro.invalid) {
       return;
-      }
+    }
+
+    try {
+      const { nombre, correo, contrasena } = this.formularioRegistro.value;
+      // Llamamos a registro() que hace la vinculación si hay sesión anónima
+      const uid = await this.firebaseService.registro(nombre, correo, contrasena);
+      console.log('Usuario registrado con UID:', uid);
+
+      // Aquí navegas solo después del registro correcto
+      this.router.navigate(['/login']);
+    } catch (error: any) {
+      this.errorMessage = error.message; // Mostrar mensaje de error
+      console.error('Error de registro:', error.message);
+    }
   }
-
-
-
-
-
 }
 

@@ -6,14 +6,14 @@
         <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
       </mat-card-header>
       <mat-card-content class="contenido">
-        <form class="formulario"> 
+        <form [formGroup]="formularioLogin" class="formulario"> 
           <p>Ingresa tus credenciales de usuario</p>
-          <input type="email" placeholder="Ingrese su correo">
-          <input type="password" placeholder="Ingrese su contraseña">
+          <input formControlName="correo" type="email" placeholder="Ingrese su correo" [(ngModel)]="email" requiered>
+          <input formControlName="contrasena" type="password" placeholder="Ingrese su contraseña" [(ngModel)]="password" required>
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">
-        <button class="boton" mat-button>Iniciar sesión</button>
+        <button class="boton" (click)="onLogin()" mat-button>Iniciar sesión</button>
         <p>Si no tienes cuenta<a id="botones" routerLink="/registro">¡Registrate!</a></p>
       </mat-card-actions>
     </mat-card>
