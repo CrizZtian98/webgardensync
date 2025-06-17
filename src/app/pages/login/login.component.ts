@@ -10,7 +10,7 @@ import { IonButton } from "@ionic/angular/standalone";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [IonButton, RouterLink, HeaderComponent,FooterComponent,ReactiveFormsModule,
+  imports: [ RouterLink, HeaderComponent,FooterComponent,ReactiveFormsModule,
     MatCardModule,FormsModule
   ],
   templateUrl: './login.component.html',
