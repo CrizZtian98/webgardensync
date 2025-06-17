@@ -1,33 +1,26 @@
-import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
-import { getAuth, provideAuth } from '@angular/fire/auth'
-import { getFirestore, provideFirestore } from '@angular/fire/firestore'
-import { getStorage, provideStorage } from '@angular/fire/storage';
-import { FirebaseInitService } from '../firebase-init.service';
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
-export function initializeFirebase(firebaseInitService: FirebaseInitService) {
-  return () => firebaseInitService.init();
-}
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-      {
-      provide: APP_INITIALIZER,
-      useFactory: initializeFirebase,
-      deps: [FirebaseInitService],
-      multi: true
-    },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
   ],
 };
+

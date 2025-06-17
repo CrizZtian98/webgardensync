@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Auth, getAuth, signInAnonymously, signInWithEmailAndPassword, User } from '@angular/fire/auth';
+import { Auth, User, signInAnonymously, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
-import { FirebaseInitService } from '../../firebase-init.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private auth: Auth
-  constructor(private firebaseInitService: FirebaseInitService) {
-    this.auth = firebaseInitService.auth;
-  }
 
+  constructor(private auth: Auth) {}
+
+  // Iniciar sesión con correo y contraseña
   async login(email: string, password: string) {
-    const auth = getAuth();
-    return await signInWithEmailAndPassword(auth, email, password);
+    return await signInWithEmailAndPassword(this.auth, email, password);
   }
 
+  // Iniciar sesión anónima
   async loginAnonimo() {
     try {
       const userCredential = await signInAnonymously(this.auth);
@@ -28,31 +26,27 @@ export class AuthService {
     }
   }
 
+  // Verifica si el usuario actual es anónimo
   async isAnonimo(): Promise<boolean> {
     const user = this.auth.currentUser;
     return user ? user.isAnonymous : false;
   }
 
+  // Obtener el usuario autenticado actual como observable
   getCurrentUser(): Observable<User | null> {
     return new Observable((observer) => {
       const unsubscribe = this.auth.onAuthStateChanged(
-        (user) => {
-          observer.next(user);  // Emitir el usuario
-        },
-        (error) => {
-          observer.error(error);  // Emitir el error
-        },
-        () => {
-          observer.complete();  // Completar cuando termine
-        }
+        (user) => observer.next(user),
+        (error) => observer.error(error),
+        () => observer.complete()
       );
-
-      // Limpiar la suscripción cuando se desuscriba el observable
       return unsubscribe;
     });
   }
 
+  // Cerrar sesión
   logout() {
     return this.auth.signOut();
   }
 }
+
