@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, Auth, EmailAuthProvider, linkWithCreden
 import { FirebaseError } from 'firebase/app';
 import { FirebaseStorage } from 'firebase/storage';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -103,13 +104,14 @@ export class FirebaseService {
     });
   }
 
-  async obtenerPublicaciones() {
-    const publicacionesRef = collection(this.db, 'Publicaciones');
-    const q = query(publicacionesRef, orderBy('fecha', 'desc'));
-    const publicacionesSnap = await getDocs(q);
+async obtenerPublicaciones() {
+  await this.ensureInitialized(); // ¡IMPORTANTE!
+  const publicacionesRef = collection(this.db, 'Publicaciones');
+  const q = query(publicacionesRef, orderBy('fecha', 'desc'));
+  const publicacionesSnap = await getDocs(q);
+  return publicacionesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
 
-    return publicacionesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  }
 
   async comentar(publicacionId: string, contenido: string) {
     const user = this.auth.currentUser;
