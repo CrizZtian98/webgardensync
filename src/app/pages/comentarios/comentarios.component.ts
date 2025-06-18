@@ -32,6 +32,7 @@ export class ComentariosComponent {
   nuevoComentario: string = '';
   cargandoComentarios: boolean = false;
   comentarios: any[] = [];
+  menuMap: any = {};
 
   constructor(
     private firebaseService: FirebaseService,
@@ -71,6 +72,10 @@ export class ComentariosComponent {
 
   async dislike() {
     await this.firebaseService.darDislike(this.publicacion.id);
+  }
+
+  cerrar(){
+    this.router.navigate(['publicaciones'])
   }
 }
 

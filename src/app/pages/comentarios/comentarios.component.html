@@ -1,10 +1,12 @@
 <app-header></app-header>
 <div class="contenedor">
-    <p class="superior">Publicación</p>
-    <button routerLink="/publicaciones">atras</button>
+    <p class="superior">Comentarios</p>
     <mat-card class="card" *ngIf="publicacion">
         <div>
-            <button mat-icon-button [matMenuTriggerFor]="menu1">
+            <button class="cerrar" (click)="cerrar()">
+                <i class="fa-solid fa-chevron-up"></i>
+            </button>
+            <button class="botonBan" mat-icon-button [matMenuTriggerFor]="menu1">
                 <i class="fa-solid fa-ban"></i>
             </button>
 
@@ -31,13 +33,13 @@
             </mat-card-content>
         </div>
         <p class="titulo">Comentarios:</p>
-        <mat-card class="card-comentarios" *ngIf="comentarios.length > 0">
-            <div *ngFor="let comentario of comentarios" >
-                <mat-card-header class="header-comentarios" >
-                    <button mat-icon-button [matMenuTriggerFor]="menu2">
+        <div *ngIf="comentarios.length > 0">
+            <mat-card class="card-comentarios" *ngFor="let comentario of comentarios" >
+                <div>
+                    <button mat-icon-button [matMenuTriggerFor]="menuuu">
                         <i class="fa-solid fa-ban"></i>
                     </button>
-                    <mat-menu #menu2="matMenu">
+                    <mat-menu #menuuu="matMenu">
                         <button mat-menu-item>
                         <i class="fa-solid fa-user-slash"></i> Banear usuario
                         </button>
@@ -48,17 +50,18 @@
                         <i class="fa-solid fa-trash"></i> Eliminar
                         </button>
                     </mat-menu>
-                    <div mat-card-avatar>
-                        <img src="icons/Perfil.png" alt="Avatar" class="avatar-comentarios"/>
-                    </div>
-                    <mat-card-title >{{ comentario.nombre }}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="contenido-comentarios">
-                        <p>{{ comentario.contenido }}</p>
-                </mat-card-content>
-            </div>
-        </mat-card>
+                    <mat-card-header class="header-comentarios" >
+                        <div mat-card-avatar>
+                            <img src="icons/Perfil.png" alt="Avatar" class="avatar-comentarios"/>
+                        </div>
+                        <mat-card-title >{{ comentario.nombre }}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="contenido-comentarios">
+                            <p>{{ comentario.contenido }}</p>
+                    </mat-card-content>
+                </div>
+            </mat-card>
+        </div>
     </mat-card>
 </div>
-
 <app-footer class="footer"></app-footer>
