@@ -17,7 +17,9 @@ export class HeaderComponent {
 
 
 
-
+  usuarios(){
+    this.router.navigate(['usuariosregistrados'])
+  }
 
   publicaciones(){
     this.router.navigate(['publicaciones'])

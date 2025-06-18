@@ -3,23 +3,24 @@
         <p>Publicaciones dentro de la aplicación:</p>
     </div>
   <div class="contenedor" *ngIf="!cargando">
-    <mat-card class="card" *ngFor="let publi of publicaciones" (click)="abrirPost(publi)">
-        <button mat-icon-button [matMenuTriggerFor]="menu2">
-            <i class="fa-solid fa-ban"></i>
-        </button>
-        <mat-menu #menu2="matMenu">
-            <button mat-menu-item>
-            <i class="fa-solid fa-user-slash"></i> Banear usuario
+    <mat-card class="card" *ngFor="let publi of publicaciones">
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu2">
+                <i class="fa-solid fa-ban"></i>
             </button>
-            <button mat-menu-item>
-            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
-            </button>
-            <button mat-menu-item>
-            <i class="fa-solid fa-trash"></i> Eliminar
-            </button>
-        </mat-menu>
-
-        <mat-card-header class="card-header" >
+            <mat-menu #menu2="matMenu">
+                <button mat-menu-item>
+                <i class="fa-solid fa-user-slash"></i> Banear usuario
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+            </mat-menu>
+        </div>
+        <mat-card-header class="card-header" (click)="abrirPost(publi)">
             <div mat-card-avatar>
                 <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
             </div>
