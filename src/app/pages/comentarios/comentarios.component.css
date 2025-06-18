@@ -160,3 +160,9 @@ button[mat-icon-button] {
 .cerrar:hover{
     transform: translateY(-5px);
 }
+
+.superior{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(15px, 2vw, 25px);
+}
