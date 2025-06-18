@@ -10,13 +10,13 @@ import { AuthService } from '../../services/auth.service';
 import { FirebaseService } from '../../../firebase.service';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ModalController, IonButton } from '@ionic/angular/standalone';
 import { MatGridListModule } from '@angular/material/grid-list';
+
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [IonButton, HeaderComponent, FooterComponent, MatCardModule, MatMenuModule,
+  imports: [ HeaderComponent, FooterComponent, MatCardModule, MatMenuModule,
             MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule],
   templateUrl: './publicaciones.component.html',
   styleUrl: './publicaciones.component.css'
@@ -28,8 +28,7 @@ export class PublicacionesComponent{
   esAnonimo = false;
 
   constructor(
-    private firebaseService: FirebaseService, private auth: AuthService, private router: Router
-     
+    private firebaseService: FirebaseService, private auth: AuthService, private router: Router,
   ) {}
 
 
@@ -71,5 +70,14 @@ export class PublicacionesComponent{
     await this.cargarPublicaciones();
   }
 
+  comentar(){
+    this.router.navigate(['modalpublicacion'])
+  }
+
+  abrirPost(publicacion: any) {
+    this.router.navigate(['/comentarios'], {
+      state: { publicacion }
+    });
+  }
 
 }

@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Componente Prueba2</h2>
+<mat-dialog-content>
+  
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu2">
+                <i class="fa-solid fa-ban"></i>
+            </button>
+
+            <mat-menu #menu2="matMenu">
+                <button mat-menu-item>
+                <i class="fa-solid fa-user-slash"></i> Banear usuario
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+            </mat-menu>
+
+            <mat-card-header class="card-header" >
+                <div mat-card-avatar>
+                    <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
+                </div>
+                <mat-card-title>sdf</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="contenido">
+                <p>sdf</p>
+            </mat-card-content>
+        </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cerrar()">Cerrar</button>
+</mat-dialog-actions>

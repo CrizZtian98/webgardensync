@@ -1,0 +1,64 @@
+<app-header></app-header>
+<div class="contenedor">
+    <p class="superior">Publicación</p>
+    <button routerLink="/publicaciones">atras</button>
+    <mat-card class="card" *ngIf="publicacion">
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu1">
+                <i class="fa-solid fa-ban"></i>
+            </button>
+
+            <mat-menu #menu1="matMenu">
+                <button mat-menu-item>
+                <i class="fa-solid fa-user-slash"></i> Banear usuario
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+            </mat-menu>
+
+            <mat-card-header class="card-header" >
+                <div mat-card-avatar>
+                    <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
+                </div>
+                <mat-card-title>{{ publicacion.nombre }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="contenido">
+                <p>{{ publicacion.contenido }}</p>
+            </mat-card-content>
+        </div>
+        <p class="titulo">Comentarios:</p>
+        <mat-card class="card-comentarios" *ngIf="comentarios.length > 0">
+            <div *ngFor="let comentario of comentarios" >
+                <mat-card-header class="header-comentarios" >
+                    <button mat-icon-button [matMenuTriggerFor]="menu2">
+                        <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <mat-menu #menu2="matMenu">
+                        <button mat-menu-item>
+                        <i class="fa-solid fa-user-slash"></i> Banear usuario
+                        </button>
+                        <button mat-menu-item>
+                        <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+                        </button>
+                        <button mat-menu-item>
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                    </mat-menu>
+                    <div mat-card-avatar>
+                        <img src="icons/Perfil.png" alt="Avatar" class="avatar-comentarios"/>
+                    </div>
+                    <mat-card-title >{{ comentario.nombre }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="contenido-comentarios">
+                        <p>{{ comentario.contenido }}</p>
+                </mat-card-content>
+            </div>
+        </mat-card>
+    </mat-card>
+</div>
+
+<app-footer class="footer"></app-footer>

@@ -33,10 +33,11 @@
 }
 
 .card-header{
-    text-align: start;
-    justify-content: start;
+    display: flex;
     color: white;
     mat-card-title{
+        margin-top: 0.5rem;
+        margin-left: -.5rem;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: clamp(12px, 2vw, 20px);
         color: rgb(18, 161, 18);
@@ -88,4 +89,53 @@ button[mat-icon-button] {
 .avatar{
     width: 100%;
     height: 100%;
+}
+
+.superior{
+    margin-top: -3rem;
+    margin-bottom: 2rem;
+}
+
+.card-comentarios{
+    margin-top: 2rem;
+    background-color: transparent;
+}
+
+.titulo{
+    margin-top: 1rem;
+    margin-left: 1rem;
+    color: rgb(219, 219, 219);   
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header-comentarios{
+    display: flex;
+    color: white;
+    mat-card-title{
+        margin-top: 0.5rem;
+        margin-left: -.5rem;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: clamp(8px, 2vw, 13px);
+        color: rgb(18, 161, 18);
+    }
+
+    button[mat-icon-button] {
+        top: 10px;
+        right: 10px;
+        color: red;
+    }
+}
+
+.avatar-comentarios{
+    width: 100%;
+    height: 100%;
+}
+
+.contenido-comentarios{
+        color: rgb(209, 209, 209);
+        font-size: clamp(6px, 2vw, 11px);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        max-width: 100%;
 }

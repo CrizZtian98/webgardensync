@@ -1,0 +1,30 @@
+<h2>Bienvenido a la página Prueba1</h2>
+<button mat-raised-button color="primary" (click)="abrirDialogo()">Abrir Modal</button>
+
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu2">
+                <i class="fa-solid fa-ban"></i>
+            </button>
+
+            <mat-menu #menu2="matMenu">
+                <button mat-menu-item>
+                <i class="fa-solid fa-user-slash"></i> Banear usuario
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+                </button>
+                <button mat-menu-item>
+                <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+            </mat-menu>
+
+            <mat-card-header class="card-header" >
+                <div mat-card-avatar>
+                    <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
+                </div>
+                <mat-card-title>sdf</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="contenido">
+                <p>sdf</p>
+            </mat-card-content>
+        </div>

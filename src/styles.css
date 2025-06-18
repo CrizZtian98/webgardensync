@@ -20,8 +20,9 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    
+   
 }
+
 
 
 app-root {
@@ -50,6 +51,7 @@ app-root {
     background-repeat: no-repeat;
     background-position:top;
     box-shadow:0 0 10px 5px black;
+
     animation: shape2 5s linear infinite;
 }
 
