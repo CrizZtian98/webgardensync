@@ -11,19 +11,21 @@ import { FirebaseService } from '../../../firebase.service';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
   imports: [ HeaderComponent, FooterComponent, MatCardModule, MatMenuModule,
-            MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule],
+            MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule,MatProgressSpinnerModule
+          ],
   templateUrl: './publicaciones.component.html',
   styleUrl: './publicaciones.component.css'
 })
 export class PublicacionesComponent{
   publicaciones: any[] = [];
-  cargando = true;
+  cargando = false;
   textoPublicacion = '';
   esAnonimo = false;
 
@@ -33,7 +35,8 @@ export class PublicacionesComponent{
 
 
   async ngOnInit() {
-    this.cargarPublicaciones();
+    this.cargando = true;  // Por si acaso aseguramos que arranque en true
+    await this.cargarPublicaciones();  // Esperamos que cargue antes de seguir
     this.auth.getCurrentUser().subscribe((user) => {
       if (user) {
         console.log('Usuario ya logueado', user);
@@ -43,7 +46,6 @@ export class PublicacionesComponent{
       }
     });
     this.esAnonimo = await this.auth.isAnonimo();
-  
   }
 
   async crearPublicacion() {
@@ -55,9 +57,14 @@ export class PublicacionesComponent{
   }
 
   async cargarPublicaciones() {
-    this.cargando = true;
-    this.publicaciones = await this.firebaseService.obtenerPublicaciones();
-    this.cargando = false;
+    this.cargando = true;   // Arrancamos carga
+    try {
+      this.publicaciones = await this.firebaseService.obtenerPublicaciones();
+    } catch (error) {
+      console.error('Error cargando publicaciones:', error);
+    } finally {
+      this.cargando = false;  // Terminamos carga siempre
+    }
   }
 
   async like(id: string) {

@@ -7,11 +7,12 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FirebaseService } from '../../../firebase.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterLink, MatCardModule,HeaderComponent,FooterComponent,ReactiveFormsModule,NgIf],
+  imports: [RouterLink, MatCardModule,HeaderComponent,FooterComponent,ReactiveFormsModule,NgIf,MatProgressSpinnerModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -22,6 +23,8 @@ export class RegistroComponent {
   correoPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   passwordPattern = '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,}$';
   errorMessage: any;
+  isLoading: boolean = false;
+
 
   constructor(private fb: FormBuilder,private authService: AuthService,private router: Router,private firebaseService: FirebaseService) {
 
@@ -88,27 +91,29 @@ export class RegistroComponent {
     return null;
   }
   
-  async registrar() {
-    console.log('registrar llamado');
-    this.submitted = true;
+async registrar() {
+  console.log('registrar llamado');
+  this.submitted = true;
 
-    if (this.formularioRegistro.invalid) {
-      return;
-    }
-
-    try {
-      const { nombre, correo, contrasena } = this.formularioRegistro.value;
-      await this.firebaseService['firebaseInitService'].whenReady();
-      // Llamamos a registro() que hace la vinculación si hay sesión anónima
-      const uid = await this.firebaseService.registro(nombre, correo, contrasena);
-      console.log('Usuario registrado con UID:', uid);
-
-      // Aquí navegas solo después del registro correcto
-      this.router.navigate(['registrohogar']);
-    } catch (error: any) {
-      this.errorMessage = error.message; // Mostrar mensaje de error
-      console.error('Error de registro:', error.message);
-    }
+  if (this.formularioRegistro.invalid) {
+    return;
   }
+
+  this.isLoading = true;  
+
+  try {
+    const { nombre, correo, contrasena } = this.formularioRegistro.value;
+    await this.firebaseService['firebaseInitService'].whenReady();
+    const uid = await this.firebaseService.registro(nombre, correo, contrasena);
+    console.log('Usuario registrado con UID:', uid);
+    this.router.navigate(['registrohogar']);
+  } catch (error: any) {
+    this.errorMessage = error.message; 
+    console.error('Error de registro:', error.message);
+  } finally {
+    this.isLoading = false; 
+  }
+}
+
 }
 

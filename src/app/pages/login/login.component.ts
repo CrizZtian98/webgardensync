@@ -5,13 +5,14 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { IonButton } from "@ionic/angular/standalone";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ RouterLink, HeaderComponent,FooterComponent,ReactiveFormsModule,
-    MatCardModule,FormsModule
+    MatCardModule,FormsModule,MatProgressSpinnerModule,NgIf,NgFor
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit{
       if (user) {
         if (!user.isAnonymous) {
           console.log('Usuario con cuenta, redirigiendo a home:', user);
-          this.router.navigate(['/h']);
+          this.router.navigate(['/perfil']);
         } else {
           console.log('Usuario anónimo, puede registrarse o iniciar sesión');
         }

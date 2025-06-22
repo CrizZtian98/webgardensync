@@ -69,3 +69,19 @@ app-root {
     }
 }
 
+/* Estilo global para cambiar el color del spinner a negro */
+.mat-mdc-progress-spinner.mat-primary .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: black !important;
+}
+
+.spinner-login circle {
+  stroke: white !important;
+}
+
+.spinner-publi circle{
+   stroke: white !important;
+}
+
+.spinner-registro circle{
+    stroke: white;
+}

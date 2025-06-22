@@ -84,6 +84,7 @@ export class FirebaseService {
 }
 
   async crearPublicacion(contenido: string) {
+    await this.ensureInitialized();
     const user = this.auth.currentUser;
     if (!user) throw new Error('Usuario no autenticado');
 
@@ -114,6 +115,7 @@ async obtenerPublicaciones() {
 
 
   async comentar(publicacionId: string, contenido: string) {
+    await this.ensureInitialized();
     const user = this.auth.currentUser;
     if (!user) throw new Error('Usuario no autenticado');
 
@@ -196,6 +198,8 @@ async obtenerPublicaciones() {
 
   // tener datos de la persona
   async obtenerDatosPersona() {
+    await this.ensureInitialized();
+
     const user = this.auth.currentUser;
     if (!user) throw new Error('Usuario no autenticado');
 

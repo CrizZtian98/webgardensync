@@ -6,11 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { FirebaseService } from '../../../firebase.service';
 import { getAuth } from 'firebase/auth';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-registrohogar',
   standalone: true,
-  imports: [HeaderComponent,FooterComponent,ReactiveFormsModule,MatCardModule,FormsModule],
+  imports: [HeaderComponent,FooterComponent,ReactiveFormsModule,MatCardModule,FormsModule,MatProgressSpinnerModule],
   templateUrl: './registrohogar.component.html',
   styleUrl: './registrohogar.component.css'
 })

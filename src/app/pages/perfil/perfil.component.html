@@ -1,5 +1,60 @@
 <app-header></app-header>
 
-<p>perfil works!</p>
+  <div class="contenedor">
+    <mat-card class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-user" id="logoPerfil"></i>
+        <mat-card-title >Datos de tu perfil</mat-card-title>
+      </div>
+      
+      <mat-card-content class="contenido">
+        <mat-list>
+            <mat-list-item class="lista">
+            <i class="fa-solid fa-user" id="logoLista"></i>
+            <label class="labelList">Nombre de usuario:</label>
+            <ng-container *ngIf="loadingNombre; else nombreUser">
+                <div class="spinner-container-perfil">
+                <mat-progress-spinner color="primary" diameter="30" mode="indeterminate"></mat-progress-spinner>
+                </div>
+            </ng-container>
+            <ng-template #nombreUser>
+                <p id="resultadoP">{{ nombre }}</p>
+            </ng-template>
+            <div class="botonEdit">
+                <i class="fa-solid fa-pen-to-square" id="editar"></i>
+            </div>
+            </mat-list-item>
+                <mat-list-item class="lista">
+                <i class="fa-solid fa-envelope" id="logoLista"></i>
+                <label class="labelList">Correo electrónico:</label>
+                <ng-container *ngIf="loadingCorreo; else correoUser">
+                    <div class="spinner-container-perfil">
+                    <mat-progress-spinner color="primary" diameter="30" mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </ng-container>
+                <ng-template #correoUser>
+                    <p id="resultadoP">{{ correo }}</p>
+                </ng-template>
+                </mat-list-item>
+
+                <mat-list-item class="lista">
+                <i class="fa-solid fa-house" id="logoLista"></i>
+                <label class="labelList">Nombre hogar:</label>
+                <ng-container *ngIf="loadingHogar; else hogarUser">
+                    <div class="spinner-container-perfil">
+                    <mat-progress-spinner color="primary" diameter="30" mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </ng-container>
+                <ng-template #hogarUser>
+                    <p id="resultadoP">{{ hogar?.nombreHogar }}</p>
+                </ng-template>
+                </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions class="boton-container">
+        <button class="boton" mat-button (click)="cerrarSesion()">Cerrar Sesión</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
 <app-footer></app-footer>

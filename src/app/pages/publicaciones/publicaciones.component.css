@@ -114,3 +114,23 @@ button[mat-icon-button] {
 .btn-dislike:hover{
     transform: translateY(-5px);
 }
+
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 300px;
+    gap: 10px;
+    color: #333;
+    background-color: rgba(0, 0, 0, 0.451);
+    margin: 0 auto; /* Esto centra horizontalmente */
+    border-radius: 1rem;
+}
+
+#textoCarga {
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+

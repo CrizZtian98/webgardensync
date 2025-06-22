@@ -18,7 +18,7 @@
 .card{
     width: 400px;
     min-width: 264px;
-    max-width: 100%;
+    max-width: 85%;
     min-height: 150px;
     max-height: 100%;
     background-color: rgba(247, 224, 166, 0.234);
@@ -106,3 +106,13 @@
 #botones_hover{
     transform: translateY(-3px);
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+
+

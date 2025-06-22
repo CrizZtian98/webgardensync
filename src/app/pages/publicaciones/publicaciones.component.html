@@ -1,46 +1,55 @@
 <app-header></app-header>
-    <div class="contenido-superior">
-        <p>Publicaciones dentro de la aplicación:</p>
+
+<div class="contenido-superior">
+  <p>Publicaciones dentro de la aplicación:</p>
+</div>
+
+<div *ngIf="cargando" class="spinner-container">
+  <mat-progress-spinner class="spinner-publi" diameter="40" mode="indeterminate" color="primary"></mat-progress-spinner>
+  <p id="textoCarga">Cargando publicaciones...</p>
+</div>
+
+<!-- Lista de publicaciones -->
+<div class="contenedor" *ngIf="!cargando">
+  <mat-card class="card" *ngFor="let publi of publicaciones">
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu2">
+        <i class="fa-solid fa-ban"></i>
+      </button>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item>
+          <i class="fa-solid fa-user-slash"></i> Banear usuario
+        </button>
+        <button mat-menu-item>
+          <i class="fa-solid fa-triangle-exclamation"></i> Reportar
+        </button>
+        <button mat-menu-item>
+          <i class="fa-solid fa-trash"></i> Eliminar
+        </button>
+      </mat-menu>
     </div>
-  <div class="contenedor" *ngIf="!cargando">
-    <mat-card class="card" *ngFor="let publi of publicaciones">
-        <div>
-            <button mat-icon-button [matMenuTriggerFor]="menu2">
-                <i class="fa-solid fa-ban"></i>
-            </button>
-            <mat-menu #menu2="matMenu">
-                <button mat-menu-item>
-                <i class="fa-solid fa-user-slash"></i> Banear usuario
-                </button>
-                <button mat-menu-item>
-                <i class="fa-solid fa-triangle-exclamation"></i> Reportar
-                </button>
-                <button mat-menu-item>
-                <i class="fa-solid fa-trash"></i> Eliminar
-                </button>
-            </mat-menu>
-        </div>
-        <mat-card-header class="card-header" (click)="abrirPost(publi)">
-            <div mat-card-avatar>
-                <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
-            </div>
-            <mat-card-title >{{ publi.nombre }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="contenido">
-            <p>{{ publi.contenido }}</p>
-        </mat-card-content>
-        <mat-grid-list cols="3" rowHeight="100px">
-            <mat-grid-tile>
-                <button class="btn-like" fill="clear" size="small" (click)="like(publi.id); $event.stopPropagation()">
-                👍 {{ publi.likes || 0 }}
-                </button>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <button class="btn-dislike" fill="clear" size="small" (click)="dislike(publi.id); $event.stopPropagation()">
-                    👎 {{ publi.dislikes || 0 }}
-                </button>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </mat-card>
-  </div>
+    <mat-card-header class="card-header" (click)="abrirPost(publi)">
+      <div mat-card-avatar>
+        <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
+      </div>
+      <mat-card-title>{{ publi.nombre }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="contenido">
+      <p>{{ publi.contenido }}</p>
+    </mat-card-content>
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile>
+        <button class="btn-like" fill="clear" size="small" (click)="like(publi.id); $event.stopPropagation()">
+          👍 {{ publi.likes || 0 }}
+        </button>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button class="btn-dislike" fill="clear" size="small" (click)="dislike(publi.id); $event.stopPropagation()">
+          👎 {{ publi.dislikes || 0 }}
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>
+
 <app-footer></app-footer>
