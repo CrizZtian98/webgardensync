@@ -85,3 +85,7 @@ app-root {
 .spinner-registro circle{
     stroke: white;
 }
+
+.spinner-registrohogar circle{
+    stroke: white;
+}

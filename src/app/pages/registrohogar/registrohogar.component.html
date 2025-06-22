@@ -12,7 +12,21 @@
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">
-        <button class="boton" (click)="registrarHogar()" mat-button>¡Registrar!</button>
+        <button class="boton" (click)="registrarHogar()" mat-button [disabled]="isLoading">
+          <ng-container *ngIf="!isLoading; else cargando">
+            ¡Registrar!
+          </ng-container>
+          <ng-template #cargando>
+            <mat-progress-spinner
+              class="spinner-registrohogar"
+              diameter="20"
+              mode="indeterminate"
+              color="primary"
+              strokeWidth="3"
+              style="display: inline-block; vertical-align: middle;">
+            </mat-progress-spinner>
+          </ng-template>
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>
