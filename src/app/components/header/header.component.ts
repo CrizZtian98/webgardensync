@@ -14,9 +14,6 @@ export class HeaderComponent {
 
   }
 
-
-
-
   usuarios(){
     this.router.navigate(['usuariosregistrados'])
   }
@@ -24,10 +21,6 @@ export class HeaderComponent {
   publicaciones(){
     this.router.navigate(['publicaciones'])
   }
-
-
-
-
 
 }
 

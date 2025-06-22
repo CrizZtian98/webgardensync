@@ -9,12 +9,15 @@ import { FirebaseService } from '../../../firebase.service';
 import { AuthService } from '../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgFor, NgIf } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarcierreComponent } from '../../components/confirmarcierre/confirmarcierre.component';
 
 @Component({
   selector: 'app-perfil',
+  
   standalone: true,
   imports: [RouterLink, HeaderComponent, FooterComponent,ReactiveFormsModule,
-      MatCardModule,FormsModule,MatListModule,MatProgressSpinnerModule,NgIf,NgFor
+      MatCardModule,FormsModule,MatListModule,MatProgressSpinnerModule,NgIf,NgFor,ConfirmarcierreComponent
   ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css'
@@ -29,7 +32,7 @@ export class PerfilComponent {
   loadingCorreo = true;
   loadingHogar = true;
 
-  constructor(private firebaseService: FirebaseService, private router: Router, private authservice: AuthService){}
+  constructor(private firebaseService: FirebaseService, private router: Router, private authservice: AuthService,private dialog: MatDialog){}
 
   async ngOnInit() {
     this.cargarDatosPerfil();
@@ -73,12 +76,20 @@ export class PerfilComponent {
   }
 
   async cerrarSesion() {
-    try {
-      await this.authservice.logout();
-      console.log('Sesión cerrada correctamente');
-      this.router.navigate(['/login']);
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
+    const dialogRef = this.dialog.open(ConfirmarcierreComponent, {
+      data: { mensaje: '¿Desea cerrar sesión?' }
+    });
+
+    dialogRef.afterClosed().subscribe(async (resultado) => {
+      if (resultado) {
+        try {
+          await this.authservice.logout();
+          console.log('Sesión cerrada correctamente');
+          this.router.navigate(['/login']);
+        } catch (error) {
+          console.error('Error al cerrar sesión:', error);
+        }
+      }
+    });
   }
 }

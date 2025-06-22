@@ -9,6 +9,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
 import { FirebaseService } from '../../../firebase.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-comentarios',
@@ -22,7 +23,8 @@ import { FirebaseService } from '../../../firebase.service';
     MatButtonModule,
     NgIf,
     NgFor,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './comentarios.component.html',
   styleUrl: './comentarios.component.css'

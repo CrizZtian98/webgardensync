@@ -166,3 +166,14 @@ button[mat-icon-button] {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: clamp(15px, 2vw, 25px);
 }
+
+.spinner-container{
+    display: flex;
+    justify-content: center;
+    
+    p{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-left: 1rem;
+        color: white;
+    }
+}

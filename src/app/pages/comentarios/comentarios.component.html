@@ -33,6 +33,15 @@
             </mat-card-content>
         </div>
         <p class="titulo">Comentarios:</p>
+        <div *ngIf="cargandoComentarios" class="spinner-container">
+            <mat-progress-spinner
+                class="spinner-comentarios"
+                diameter="30"
+                mode="indeterminate"
+                color="primary">
+            </mat-progress-spinner>
+            <p>Cargando comentarios...</p>
+        </div>
         <div *ngIf="comentarios.length > 0">
             <mat-card class="card-comentarios" *ngFor="let comentario of comentarios" >
                 <div>

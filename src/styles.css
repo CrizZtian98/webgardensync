@@ -89,3 +89,7 @@ app-root {
 .spinner-registrohogar circle{
     stroke: white;
 }
+
+.spinner-comentarios circle{
+    stroke: white;
+}
