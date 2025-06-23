@@ -183,6 +183,23 @@
         .3px  .3px 0 red;
 }
 
+
+.spinner-registro-container{
+    display: flex;
+    align-items: center;
+}
+
+.spinner-text {
+    align-items: center;
+    font-size: 12px;
+    margin-right: .5rem;
+    margin-left: -1rem;
+}
+
+.spinner-registro{
+    margin-right: -2rem;
+}
+
 /*.especificaciones-contrasena{
     text-align: start;
     color: rgb(251, 251, 251);

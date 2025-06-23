@@ -271,4 +271,14 @@ async obtenerPublicaciones() {
     const macetasSnap = await getDocs(macetasRef);
     return macetasSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   }
+
+
+
+  async obtenerUsuariosRegistrados() {
+    await this.ensureInitialized();
+    const personasRef = collection(this.db, 'Personas');
+    const snapshot = await getDocs(personasRef);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
+
 }

@@ -108,3 +108,19 @@
     transform: translateY(-3px);
 }
 
+.spinner-registrohogar-container{
+    display: flex;
+    align-items: center;
+}
+
+.spinner-text {
+    align-items: center;
+    font-size: 12px;
+    margin-right: .5rem;
+    margin-left: -1rem;
+}
+
+.spinner-registrohogar{
+    margin-right: -2rem;
+}
+

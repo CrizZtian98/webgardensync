@@ -58,14 +58,17 @@
             Registrar
           </ng-container>
           <ng-template #cargando>
-            <mat-progress-spinner
-              class="spinner-registro"
-              diameter="20"
-              mode="indeterminate"
-              color="primary"
-              strokeWidth="3"
-              style="display: inline-block; vertical-align: middle;">
-            </mat-progress-spinner>
+            <div class="spinner-registro-container">
+              <span class="spinner-text">Registrando...</span>
+              <mat-progress-spinner
+                class="spinner-registro"
+                diameter="18"
+                mode="indeterminate"
+                color="primary"
+                strokeWidth="3"
+                style="display: inline-block; vertical-align: middle;">
+              </mat-progress-spinner>
+            </div>
           </ng-template>
         </button>
         <p>¿Ya tienes una cuenta?<a routerLink="/login">¡Inicia sesión!</a></p>

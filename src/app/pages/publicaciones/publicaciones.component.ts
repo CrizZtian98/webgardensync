@@ -42,7 +42,7 @@ export class PublicacionesComponent{
         console.log('Usuario ya logueado', user);
       } else {
         console.log('No hay usuario logueado');
-        this.router.navigate(['/registro']);
+        this.router.navigate(['/login']);
       }
     });
     this.esAnonimo = await this.auth.isAnonimo();

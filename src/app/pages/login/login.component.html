@@ -15,14 +15,17 @@
       <mat-card-actions class="boton-container">
         <button class="boton" (click)="onLogin()" mat-button [disabled]="isLoading">
           <ng-container *ngIf="!isLoading; else cargando">Iniciar sesión</ng-container>
-            <ng-template #cargando>
-              <mat-progress-spinner
-                class="spinner-login"
-                diameter="20"
-                mode="indeterminate"
-                strokeWidth="3"
-                style="display: inline-block; vertical-align: middle;">
-              </mat-progress-spinner>
+            <ng-template  #cargando>
+              <div class="spinner-login-container">
+                <span class="spinner-text">Iniciando sesión...</span>
+                <mat-progress-spinner
+                  class="spinner-login"
+                  diameter="18"
+                  mode="indeterminate"
+                  style="display: inline-block; vertical-align: middle;">
+                </mat-progress-spinner>
+                
+              </div>
             </ng-template>
         </button>
 

@@ -171,9 +171,9 @@ button[mat-icon-button] {
     display: flex;
     justify-content: center;
     
-    p{
+    .spinner-text{
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        margin-left: 1rem;
         color: white;
+        margin-right: .5rem;
     }
 }

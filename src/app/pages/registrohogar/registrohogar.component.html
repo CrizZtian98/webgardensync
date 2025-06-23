@@ -17,14 +17,17 @@
             ¡Registrar!
           </ng-container>
           <ng-template #cargando>
-            <mat-progress-spinner
-              class="spinner-registrohogar"
-              diameter="20"
-              mode="indeterminate"
-              color="primary"
-              strokeWidth="3"
-              style="display: inline-block; vertical-align: middle;">
-            </mat-progress-spinner>
+            <div class="spinner-registrohogar-container">
+              <span class="spinner-text">Registrando Hogar...</span>
+              <mat-progress-spinner
+                class="spinner-registrohogar"
+                diameter="20"
+                mode="indeterminate"
+                color="primary"
+                strokeWidth="3"
+                style="display: inline-block; vertical-align: middle;">
+              </mat-progress-spinner>
+            </div>
           </ng-template>
         </button>
       </mat-card-actions>

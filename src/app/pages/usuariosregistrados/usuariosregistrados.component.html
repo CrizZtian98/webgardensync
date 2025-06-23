@@ -3,8 +3,12 @@
         <i class="fa-solid fa-user" routerLink="/login"></i>
         <p>Usuarios registrados:</p>
     </div>
+    <div *ngIf="cargando" class="spinner-container">
+        <mat-progress-spinner class="spinner-usuarios" diameter="40" mode="indeterminate" color="primary"></mat-progress-spinner>
+        <p id="textoCarga">Cargando usuarios...</p>
+    </div>
   <div class="contenedor">
-    <mat-card class="card">
+    <mat-card class="card" *ngFor="let usuario of usuarios">
 
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <i class="fa-solid fa-ban"></i>
@@ -15,51 +19,19 @@
             <i class="fa-solid fa-user-slash"></i> Banear usuario
             </button>
             <button mat-menu-item>
-            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
-            </button>
-            <button mat-menu-item>
-            <i class="fa-solid fa-trash"></i> Eliminar
+            <i class="fa-solid fa-trash"></i> Eliminar Usuario
             </button>
         </mat-menu>
 
         <mat-card-header class="card-header">
-            <p class="id">ID: 01</p>
+            <p class="id">ID: {{ usuario.id }}</p>
             <p class="nombre">Nombre de usuario</p>
-            <p>Adolf Hater</p>
+            <p class="nombre-datos">{{ usuario.nombreCompleto }}</p>
             <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content class="contenido">
-            <mat-card-title >Correo</mat-card-title>
-            <p>YoelSutro4Kgmail.com</p>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="card">
-
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <i class="fa-solid fa-ban"></i>
-        </button>
-
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-            <i class="fa-solid fa-user-slash"></i> Banear usuario
-            </button>
-            <button mat-menu-item>
-            <i class="fa-solid fa-triangle-exclamation"></i> Reportar
-            </button>
-            <button mat-menu-item>
-            <i class="fa-solid fa-trash"></i> Eliminar
-            </button>
-        </mat-menu>
-
-        <mat-card-header class="card-header">
-            <p class="id">ID: 01</p>
-            <p class="nombre">Nombre de usuario</p>
-            <p>Sebita</p>
-            <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
-        </mat-card-header>
-        <mat-card-content class="contenido">
-            <mat-card-title >Correo</mat-card-title>
-            <p>MataperrosKgmail.com</p>
+            <mat-card-title >Correo electrónico:</mat-card-title>
+            <p class="correo">{{ usuario.correo }}</p>
         </mat-card-content>
     </mat-card>
   </div>
