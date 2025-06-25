@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgFor, NgIf } from '@angular/common';
 import { FirebaseService } from '../../../firebase.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-login',
@@ -85,7 +87,24 @@ export class LoginComponent implements OnInit{
         const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
 
       if (estaBaneado) {
-          alert('Tu cuenta ha sido baneada. No puedes iniciar sesión.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Acceso denegado',
+          text: 'Tu cuenta ha sido baneada por lenguaje inapropiado.',
+          confirmButtonColor: '#5d4037',
+          confirmButtonText: 'Aceptar',
+          color: '#388e3c',
+          background: 'rgb(9, 70, 9) url("https://sweetalert2.github.io/images/trees.png")',
+          customClass: {
+            popup: 'mi-swal-popup',
+            title: 'mi-swal-title',
+            htmlContainer: 'mi-swal-text', // ✅ Este reemplaza a 'text'
+            confirmButton: 'mi-swal-button'
+          }
+        });
+
+
+
           await this.authService.logout();
           this.isLoading = false;
           return;

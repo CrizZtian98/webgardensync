@@ -105,3 +105,39 @@ app-root {
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 }
+
+
+
+/* Fondo del popup */
+.mi-swal-popup {
+  border-radius: 20px;
+  border: 3px solid #5d4037;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Título */
+.mi-swal-title {
+  color: red;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: bold;
+}
+
+/* Texto */
+.mi-swal-text {
+  color: #4e342e;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Botón */
+.mi-swal-button {
+  background-color: #5d4037 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.mi-swal-button:hover {
+  background-color: #6d4c41 !important;
+}

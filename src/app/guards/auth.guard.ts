@@ -4,6 +4,7 @@ import { Observable, of, from } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { FirebaseService } from '../../firebase.service';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,13 @@ export class AuthGuard implements CanActivate {
         return from(this.firebaseService.verificarSiBaneado(user.uid)).pipe(
           map(estaBaneado => {
             if (estaBaneado) {
-              alert('Tu cuenta ha sido baneada. No puedes acceder.');
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Acceso denegado',
+                  text: 'Tu cuenta ha sido baneada. No puedes iniciar sesión.',
+                  confirmButtonColor: '#d33',
+                  confirmButtonText: 'Aceptar'
+                });
               this.auth.logout();
               return this.router.createUrlTree(['/login']);
             }
