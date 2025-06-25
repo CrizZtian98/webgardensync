@@ -79,5 +79,32 @@ export class ComentariosComponent {
   cerrar(){
     this.router.navigate(['publicaciones'])
   }
+
+  //Implementado recientemente
+  async eliminarPublicacion() {
+    if (!confirm('¿Seguro que quieres eliminar esta publicación?')) return;
+    try {
+      await this.firebaseService.eliminarPublicacion(this.publicacion.id);
+      alert('Publicación eliminada');
+      this.router.navigate(['/publicaciones']);
+    } catch (error) {
+      alert('Error al eliminar la publicación');
+      console.error(error);
+    }
+  }
+
+  //Implementado recientemente
+  async eliminarComentario(idComentario: string) {
+    if (!confirm('¿Seguro que quieres eliminar este comentario?')) return;
+    try {
+      await this.firebaseService.eliminarComentario(this.publicacion.id, idComentario);
+      alert('Comentario eliminado');
+      await this.cargarComentarios();
+    } catch (error) {
+      alert('Error al eliminar el comentario');
+      console.error(error);
+    }
+  }
+
 }
 

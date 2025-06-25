@@ -35,6 +35,7 @@
 .card-header{
     display: flex;
     color: white;
+    cursor: pointer;
     mat-card-title{
         margin-top: 0.5rem;
         margin-left: -.5rem;
@@ -111,6 +112,7 @@ button[mat-icon-button] {
 .header-comentarios{
     display: flex;
     color: white;
+    cursor: pointer;
     mat-card-title{
         margin-top: 0.5rem;
         margin-left: -.5rem;

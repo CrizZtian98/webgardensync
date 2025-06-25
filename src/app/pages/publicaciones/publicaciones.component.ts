@@ -87,4 +87,29 @@ export class PublicacionesComponent{
     });
   }
 
+  async banear(uid: string) {
+    try {
+      await this.firebaseService.banearUsuario(uid);
+      alert('Usuario baneado exitosamente');
+    } catch (error) {
+      console.error('Error al banear:', error);
+      alert('Error al banear usuario');
+    }
+  }
+
+  async eliminarPublicacion(id: string) {
+  const confirmacion = confirm('¿Estás seguro de eliminar esta publicación?');
+
+  if (confirmacion) {
+    try {
+      await this.firebaseService.eliminarPublicacion(id);
+      console.log('Publicación eliminada');
+      await this.cargarPublicaciones();
+    } catch (error) {
+      console.error('Error al eliminar la publicación:', error);
+    }
+  }
+}
+
+
 }

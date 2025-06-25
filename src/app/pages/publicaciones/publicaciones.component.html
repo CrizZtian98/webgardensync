@@ -1,6 +1,7 @@
 <app-header></app-header>
 
 <div class="contenido-superior">
+  <i class="fa-solid fa-comments"></i>
   <p>Publicaciones dentro de la aplicación:</p>
 </div>
 
@@ -13,27 +14,21 @@
   <mat-card class="card" *ngFor="let publi of publicaciones">
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menu2">
-        <i class="fa-solid fa-ban"></i>
+        <i class="fa-solid fa-exclamation" id="exclamacion"></i>
       </button>
       <mat-menu #menu2="matMenu">
-        <button mat-menu-item>
-          <i class="fa-solid fa-user-slash"></i> Banear usuario
-        </button>
-        <button mat-menu-item>
-          <i class="fa-solid fa-triangle-exclamation"></i> Reportar
-        </button>
-        <button mat-menu-item>
-          <i class="fa-solid fa-trash"></i> Eliminar
+        <button mat-menu-item (click)="eliminarPublicacion(publi.id)">
+          <i class="fa-solid fa-trash"></i> Eliminar publicacion
         </button>
       </mat-menu>
     </div>
-    <mat-card-header class="card-header" (click)="abrirPost(publi)">
+    <mat-card-header class="card-header" >
       <div mat-card-avatar>
         <img src="icons/Perfil.png" alt="Avatar" class="avatar"/>
       </div>
       <mat-card-title>{{ publi.nombre }}</mat-card-title>
     </mat-card-header>
-    <mat-card-content class="contenido">
+    <mat-card-content class="contenido" (click)="abrirPost(publi)">
       <p>{{ publi.contenido }}</p>
     </mat-card-content>
     <mat-grid-list cols="3" rowHeight="100px">

@@ -14,6 +14,9 @@
     font-size: clamp(14px, 2vw, 20px);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-decoration:underline;
+    i{
+       font-size: clamp(1.5rem, 2vw, 2.5rem);
+    }
 }
 
 .card{

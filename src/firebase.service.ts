@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, increment, query, orderBy, Firestore } from 'firebase/firestore';
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, increment, query, orderBy, Firestore, deleteDoc } from 'firebase/firestore';
 import { FirebaseInitService } from './firebase-init.service';  // Importa el servicio
 import { createUserWithEmailAndPassword, Auth, EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
@@ -311,5 +311,36 @@ async obtenerPublicaciones() {
       throw new Error('Usuario no encontrado');
     }
   }
+
+  //Añadido recientemente
+  async eliminarPublicacion(idPublicacion: string) {
+    const db = this.db;
+
+
+    const publiRef = doc(db, 'Publicaciones', idPublicacion);
+    const comentariosRef = collection(db, 'Publicaciones', idPublicacion, 'Comentarios');
+
+    try {
+      // 🔥 Eliminar comentarios asociados
+      const comentariosSnapshot = await getDocs(comentariosRef);
+      const deleteComentarios = comentariosSnapshot.docs.map(doc => deleteDoc(doc.ref));
+      await Promise.all(deleteComentarios);
+
+      // 🔥 Eliminar la publicación (esto incluye likes y dislikes si están como campos)
+      await deleteDoc(publiRef);
+
+      console.log('Publicación y comentarios eliminados correctamente');
+    } catch (error) {
+      console.error('Error eliminando publicación:', error);
+      throw error;
+    }
+  }
+
+  //Implementado recientemente
+  async eliminarComentario(publicacionId: string, comentarioId: string) {
+    const comentarioRef = doc(this.db, `Publicaciones/${publicacionId}/Comentarios/${comentarioId}`);
+    await deleteDoc(comentarioRef);
+  }
+
 
 }
