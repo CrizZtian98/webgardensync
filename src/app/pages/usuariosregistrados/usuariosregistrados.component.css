@@ -26,16 +26,27 @@
     background-color: rgba(0, 0, 0, 0.477);
     margin-bottom: 3rem;
     transition: transform 0.3s;
-    i{
+    #exclamacion{
         text-align: end;
         color: red;
         position: absolute;
         top: 5px;
-        right: 8px;
-        font-size: 2rem;
+        right: 16px;
+        font-size: 1.8rem;
         z-index: 10;
         cursor: pointer;
     }
+
+    #baneado{
+        text-align: center;
+        color: red;
+        position: absolute;
+        top: 15px;
+        right: 2.5rem;
+        font-size: clamp(.6rem, 2vw, 1rem);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
 }
 
 .card:hover{
@@ -53,7 +64,7 @@
     }
     .id{
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: clamp(12px, 2vw, 15px);
+        font-size: clamp(.6rem, 2vw, 1rem);
     }
     .nombre{
         margin-bottom: 0.3rem;
@@ -144,4 +155,8 @@ button[mat-icon-button] {
 #textoCarga {
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.baneado-label{
+    color: white;
 }

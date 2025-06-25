@@ -14,6 +14,10 @@ export class HeaderComponent {
 
   }
 
+  perfil(){
+    this.router.navigate(['perfil'])
+  }
+
   usuarios(){
     this.router.navigate(['usuariosregistrados'])
   }
