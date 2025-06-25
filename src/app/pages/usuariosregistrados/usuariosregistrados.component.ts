@@ -60,7 +60,28 @@ export class UsuariosregistradosComponent implements OnInit{
     this.cargando = false; 
   }  
 
+  //Añadido recientemente
+  async banear(uid: string) {
+    try {
+      await this.firebaseService.banearUsuario(uid);
+      alert('Usuario baneado exitosamente');
+      this.obtenerUsuariosRegistrados(); // Refrescar lista
+    } catch (error) {
+      console.error('Error al banear:', error);
+      alert('Error al banear usuario');
+    }
+  }
 
-
+  //Añadido recientemente
+  async desbanear(uid: string) {
+    try {
+      await this.firebaseService.desbanearUsuario(uid);
+      alert('Usuario desbaneado correctamente');
+      await this.obtenerUsuariosRegistrados(); // refresca lista
+    } catch (error) {
+      console.error(error);
+      alert('Error al desbanear usuario');
+    }
+  }
 }
 

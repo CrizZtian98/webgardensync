@@ -57,6 +57,7 @@ export class FirebaseService {
     await setDoc(personaRef, {
       nombreCompleto,
       correo,
+      baneado: false
     });
 
     return uid;
@@ -279,6 +280,36 @@ async obtenerPublicaciones() {
     const personasRef = collection(this.db, 'Personas');
     const snapshot = await getDocs(personasRef);
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
+
+
+    // ✅ Banear usuario (Añadido recientemente)
+  async banearUsuario(uid: string) {
+    await this.ensureInitialized();
+    const userRef = doc(this.db, 'Personas', uid);
+    await updateDoc(userRef, { baneado: true });
+  }
+
+  // ✅ Desbanear usuario (opcional) (Añadido recientemente)
+  async desbanearUsuario(uid: string) {
+    await this.ensureInitialized();
+    const userRef = doc(this.db, 'Personas', uid);
+    await updateDoc(userRef, { baneado: false });
+  }
+
+
+  // ✅ Verificar si usuario está baneado
+  async verificarSiBaneado(uid: string): Promise<boolean> {
+    await this.ensureInitialized();
+    const userRef = doc(this.db, 'Personas', uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const datos = userSnap.data();
+      return datos['baneado'] === true;
+    } else {
+      throw new Error('Usuario no encontrado');
+    }
   }
 
 }

@@ -36,8 +36,8 @@ export class PerfilComponent {
 
   async ngOnInit() {
     this.cargarDatosPerfil();
-    this.cargardaratosHogar();
-    this.authservice.getCurrentUser().subscribe((user) => {
+    this.cargardatosHogar();
+    /*this.authservice.getCurrentUser().subscribe((user) => {
       if (user) {
         console.log('Usuario ya logueado', user);
       } else {
@@ -45,7 +45,7 @@ export class PerfilComponent {
         this.router.navigate(['/registro']);
       }
     });
-    this.esAnonimo = await this.authservice.isAnonimo();
+    this.esAnonimo = await this.authservice.isAnonimo();*/
   }
 
   async cargarDatosPerfil() {
@@ -63,7 +63,7 @@ export class PerfilComponent {
     }
   }
 
-  async cargardaratosHogar() {
+  async cargardatosHogar() {
     this.loadingHogar = true;
     try {
       const datos = await this.firebaseService.obtenerHogarUsuario();

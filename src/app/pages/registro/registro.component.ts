@@ -113,6 +113,9 @@ async registrar() {
   } finally {
     this.isLoading = false; 
   }
+
+
+
 }
 
 }

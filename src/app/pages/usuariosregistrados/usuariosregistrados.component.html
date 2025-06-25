@@ -9,19 +9,28 @@
     </div>
   <div class="contenedor">
     <mat-card class="card" *ngFor="let usuario of usuarios">
+        <p *ngIf="usuario.baneado" class="baneado-label">
+            🚫 Usuario baneado
+        </p>
+
 
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <i class="fa-solid fa-ban"></i>
         </button>
 
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+        <button mat-menu-item (click)="banear(usuario.id)">
             <i class="fa-solid fa-user-slash"></i> Banear usuario
-            </button>
-            <button mat-menu-item>
+        </button>
+        <button mat-menu-item (click)="desbanear(usuario.id)">
+            <i class="fa-solid fa-user-check"></i> Desbanear usuario
+        </button>
+        <button mat-menu-item>
             <i class="fa-solid fa-trash"></i> Eliminar Usuario
-            </button>
+        </button>
         </mat-menu>
+
+
 
         <mat-card-header class="card-header">
             <p class="id">ID: {{ usuario.id }}</p>

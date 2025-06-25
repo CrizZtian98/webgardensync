@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { AuthService } from '../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgFor, NgIf } from '@angular/common';
+import { FirebaseService } from '../../../firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit{
   loginErrorMessage: string = '';        
   formularioLogin: FormGroup<{ correo: FormControl<string | null>; contrasena: FormControl<string | null>; }>;
 
-  constructor(private authService: AuthService,public fb: FormBuilder, private router: Router,) {
+  constructor(private authService: AuthService,public fb: FormBuilder, private router: Router,private firebaseService: FirebaseService,) {
 
     this.formularioLogin = this.fb.group({
       'correo': new FormControl("", [Validators.required, Validators.email]),
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit{
 
 
   ngOnInit() {
-    this.authService.getCurrentUser().subscribe((user) => {
+    /*this.authService.getCurrentUser().subscribe((user) => {
       if (user) {
         if (!user.isAnonymous) {
           console.log('Usuario con cuenta, redirigiendo a home:', user);
@@ -56,7 +57,7 @@ export class LoginComponent implements OnInit{
       } else {
         console.log('No hay usuario logueado');
       }
-    });
+    });*/
   }
 
 
@@ -65,30 +66,45 @@ export class LoginComponent implements OnInit{
       alert('Por favor, ingresa un correo y una contraseña.');
       return;
     }
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
-      alert('el correo es inválido.');
+      alert('El correo es inválido.');
       return;
     }
-  
-    this.isLoading = true; 
-  
+
+    this.isLoading = true;
+
     try {
-      const user = await this.authService.login(this.email, this.password);
-  
-      if (user && user.user) {
-        console.log('Usuario logueado:', user.user);
+      const userCredential = await this.authService.login(this.email, this.password);
+
+      if (userCredential && userCredential.user) {
+        const uid = userCredential.user.uid;
+
+        // ✅ Verificar si está baneado (Añadido recientemente)
+        const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
+
+      if (estaBaneado) {
+          alert('Tu cuenta ha sido baneada. No puedes iniciar sesión.');
+          await this.authService.logout();
+          this.isLoading = false;
+          return;
+      }
+
+
+        console.log('Usuario logueado:', userCredential.user);
         this.router.navigate(['/']);
+
       } else {
         throw new Error('No se pudo autenticar el usuario.');
       }
     } catch (error: any) {
       this.handleLoginError(error);
     } finally {
-      this.isLoading = false; 
+      this.isLoading = false;
     }
   }
+
 
   handleLoginError(error: any) {
     switch (error.code) {

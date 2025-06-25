@@ -10,12 +10,13 @@ import { ModalpublicacionComponent } from './components/modalpublicacion/modalpu
 import { Prueba1Component } from './pages/prueba1/prueba1.component';
 import { Prueba2Component } from './components/prueba2/prueba2.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registro', component: RegistroComponent},
-    {path: 'perfil', component: PerfilComponent},
+    {path: 'perfil', component: PerfilComponent,canActivate: [AuthGuard]},
     {path: 'publicaciones', component: PublicacionesComponent},
     {path: 'usuariosregistrados', component: UsuariosregistradosComponent},
     {path: 'registrohogar', component: RegistrohogarComponent},
