@@ -163,3 +163,70 @@ button[mat-icon-button] {
 .baneado-label{
     color: white;
 }
+
+
+
+.filtros {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  margin-top: -3rem;
+  margin-bottom: 2rem;
+}
+
+/* Estilo para input */
+.input-container input {
+  background-color: rgba(0, 0, 0, 0.421);
+  border: 2px solid white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-container input:focus {
+  border-color: rgb(0, 171, 0);
+}
+
+/* Estilo para select */
+.select-container select {
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  outline: none;
+  transition: border-color 0.3s;
+  appearance: none;
+  background-color: rgba(0, 0, 0, 0.421);
+}
+
+.select-container select:focus {
+  border-color: rgb(0, 171, 0);
+}
+
+/* Labels */
+.input-container label,
+.select-container label {
+  color: white;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.input-container input::placeholder {
+  color: white;
+  opacity: 1; /* Asegura que el color sea sólido */
+}
+
+
+
+
+
+
+
+

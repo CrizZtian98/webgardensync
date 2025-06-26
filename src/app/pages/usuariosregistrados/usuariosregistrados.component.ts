@@ -10,6 +10,11 @@ import { FirebaseService } from '../../../firebase.service';
 import { NgFor, NgIf } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+
 
 @Component({
   selector: 'app-usuariosregistrados',
@@ -24,7 +29,11 @@ import { AuthService } from '../../services/auth.service';
     MatButtonModule,
     NgIf,
     NgFor,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule,            // <- Para ngModel
+    MatFormFieldModule,     // <- Para mat-form-field
+    MatInputModule,         // <- Para input dentro de mat-form-field
+    MatSelectModule         // <- Para mat-select y mat-option
   ],
   templateUrl: './usuariosregistrados.component.html',
   styleUrl: './usuariosregistrados.component.css'
@@ -33,6 +42,9 @@ export class UsuariosregistradosComponent implements OnInit{
   usuarios: any[] = [];
   cargando = false;
   esAnonimo = false;
+  terminoBusqueda: string = '';
+  filtroEstado: string = 'todos';
+
   constructor(private firebaseService: FirebaseService,private auth: AuthService, private router: Router,) {}
     
     async ngOnInit() {
@@ -83,5 +95,20 @@ export class UsuariosregistradosComponent implements OnInit{
       alert('Error al desbanear usuario');
     }
   }
+
+  //Añadido recientemente
+  usuariosFiltrados() {
+    return this.usuarios.filter(usuario => {
+      const coincideNombre = usuario.nombreCompleto.toLowerCase().includes(this.terminoBusqueda.toLowerCase());
+
+      const estadoBaneo =
+        this.filtroEstado === 'todos' ||
+        (this.filtroEstado === 'baneados' && usuario.baneado) ||
+        (this.filtroEstado === 'noBaneados' && !usuario.baneado);
+
+      return coincideNombre && estadoBaneo;
+    });
+  }
+
 }
 

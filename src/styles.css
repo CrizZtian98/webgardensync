@@ -141,3 +141,26 @@ app-root {
 .mi-swal-button:hover {
   background-color: #6d4c41 !important;
 }
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  stroke: white;
+  stroke-width: 2px;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  stroke: #00bcd4;
+  stroke-width: 3px;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+  color: #00bcd4;
+}
+
+::ng-deep .mat-form-field-label {
+  color: white;
+}
+
+::ng-deep input.mat-input-element,
+::ng-deep .mat-select-value-text {
+  color: white;
+}

@@ -3,12 +3,37 @@
         <i class="fa-solid fa-users"></i>
         <p>Usuarios registrados:</p>
     </div>
+<div class="filtros">
+  <!-- Buscador -->
+  <div class="input-container">
+    <label for="buscador">Buscar usuario:</label>
+    <input
+      id="buscador"
+      type="text"
+      [(ngModel)]="terminoBusqueda"
+      placeholder="Ingrese nombre"
+    />
+  </div>
+
+  <!-- Filtro de estado -->
+  <div class="select-container">
+    <label for="filtro">Estado:</label>
+    <select id="filtro" [(ngModel)]="filtroEstado">
+      <option value="todos">Todos</option>
+      <option value="baneados">Baneados</option>
+      <option value="noBaneados">No Baneados</option>
+    </select>
+  </div>
+</div>
+
+
     <div *ngIf="cargando" class="spinner-container">
         <mat-progress-spinner class="spinner-usuarios" diameter="40" mode="indeterminate" color="primary"></mat-progress-spinner>
         <p id="textoCarga">Cargando usuarios...</p>
     </div>
+
   <div class="contenedor">
-    <mat-card class="card" *ngFor="let usuario of usuarios">
+    <mat-card class="card" *ngFor="let usuario of usuariosFiltrados()">
         <p *ngIf="usuario.baneado" class="baneado-label" id="baneado"> Baneado
             <i class="fa-solid fa-ban" ></i>
         </p>
@@ -33,7 +58,6 @@
             <p class="id">ID: {{ usuario.id }}</p>
             <p class="nombre">Nombre de usuario</p>
             <p class="nombre-datos">{{ usuario.nombreCompleto }}</p>
-            <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
         </mat-card-header>
         <mat-card-content class="contenido">
             <mat-card-title >Correo electrónico:</mat-card-title>
