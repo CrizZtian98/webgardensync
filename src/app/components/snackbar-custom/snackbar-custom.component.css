@@ -1,0 +1,32 @@
+div{
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.snackbar-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px ;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    i{
+        margin-left: .5rem;
+        font-size: 1.5rem;
+    }
+}
+
+
+/* Colores según el tipo */
+.snackbar-container.exito {
+  background-color: #4caf50 !important; /* Verde */
+
+}
+
+.snackbar-container.error {
+  background-color: #f44336 !important; /* Rojo */
+}
+
+
+
+

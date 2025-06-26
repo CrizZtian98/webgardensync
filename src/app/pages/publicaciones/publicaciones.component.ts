@@ -12,13 +12,17 @@ import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
 
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
   imports: [ HeaderComponent, FooterComponent, MatCardModule, MatMenuModule,
-            MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule,MatProgressSpinnerModule
+            MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule,MatProgressSpinnerModule,FormsModule,
+                MatSnackBarModule,SnackbarCustomComponent
           ],
   templateUrl: './publicaciones.component.html',
   styleUrl: './publicaciones.component.css'
@@ -28,9 +32,10 @@ export class PublicacionesComponent{
   cargando = false;
   textoPublicacion = '';
   esAnonimo = false;
+  terminoBusqueda = '';
 
   constructor(
-    private firebaseService: FirebaseService, private auth: AuthService, private router: Router,
+    private firebaseService: FirebaseService, private auth: AuthService, private router: Router,private snackBar: MatSnackBar
   ) {}
 
 
@@ -100,16 +105,39 @@ export class PublicacionesComponent{
   async eliminarPublicacion(id: string) {
   const confirmacion = confirm('¿Estás seguro de eliminar esta publicación?');
 
-  if (confirmacion) {
-    try {
-      await this.firebaseService.eliminarPublicacion(id);
-      console.log('Publicación eliminada');
-      await this.cargarPublicaciones();
-    } catch (error) {
-      console.error('Error al eliminar la publicación:', error);
+    if (confirmacion) {
+      try {
+        await this.firebaseService.eliminarPublicacion(id);
+        console.log('Publicación eliminada');
+        this.mostrarSnack('Publicación eliminada correctamente', 'exito');
+        await this.cargarPublicaciones();
+      } catch (error) {
+        console.error('Error al eliminar la publicación:', error);
+      }
     }
   }
-}
+
+
+  get publicacionesFiltradas() {
+    if (!this.terminoBusqueda.trim()) {
+      return this.publicaciones;
+    }
+    const termino = this.terminoBusqueda.toLowerCase();
+    return this.publicaciones.filter(publi =>
+      publi.nombre.toLowerCase().includes(termino)
+    );
+  }
+
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error') {
+    this.snackBar.openFromComponent(SnackbarCustomComponent, {
+      data: { mensaje, tipo },
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar']
+    });
+  }
+
 
 
 }

@@ -40,7 +40,7 @@
     gap: 10px; 
 
     input{
-        background-color: #eeeeee97;
+        background-color: #eeeeee85;
         color: black;
         border: none;
         margin: 8px 0;
@@ -48,6 +48,11 @@
         font-size: 13px;
         border-radius: 8px;
         outline: none;
+        border: 2px solid rgb(231, 231, 231);
+    }
+
+    input:focus {
+        border-color: greenyellow;
     }
 
     input:hover{

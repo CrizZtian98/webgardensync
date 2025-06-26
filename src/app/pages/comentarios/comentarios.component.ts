@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
 import { FirebaseService } from '../../../firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-comentarios',
@@ -24,7 +26,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgIf,
     NgFor,
     MatGridListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    SnackbarCustomComponent, 
   ],
   templateUrl: './comentarios.component.html',
   styleUrl: './comentarios.component.css'
@@ -38,7 +42,7 @@ export class ComentariosComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    private router: Router
+    private router: Router, private snackBar: MatSnackBar
   ) {}
 
   async ngOnInit() {
@@ -85,7 +89,7 @@ export class ComentariosComponent {
     if (!confirm('¿Seguro que quieres eliminar esta publicación?')) return;
     try {
       await this.firebaseService.eliminarPublicacion(this.publicacion.id);
-      alert('Publicación eliminada');
+      this.mostrarSnack('Publicación eliminada correctamente', 'error');
       this.router.navigate(['/publicaciones']);
     } catch (error) {
       alert('Error al eliminar la publicación');
@@ -98,12 +102,22 @@ export class ComentariosComponent {
     if (!confirm('¿Seguro que quieres eliminar este comentario?')) return;
     try {
       await this.firebaseService.eliminarComentario(this.publicacion.id, idComentario);
-      alert('Comentario eliminado');
+      this.mostrarSnack('Comentario eliminado correctamente', 'error');
       await this.cargarComentarios();
     } catch (error) {
       alert('Error al eliminar el comentario');
       console.error(error);
     }
+  }
+
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error') {
+    this.snackBar.openFromComponent(SnackbarCustomComponent, {
+      data: { mensaje, tipo },
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar']
+    });
   }
 
 }

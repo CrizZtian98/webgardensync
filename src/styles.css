@@ -164,3 +164,14 @@ app-root {
 ::ng-deep .mat-select-value-text {
   color: white;
 }
+
+/* Quita el fondo blanco del contenedor del snackbar */
+.custom-snackbar {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .mat-snack-bar-container {
+  background: transparent !important;
+  box-shadow: none !important;
+}

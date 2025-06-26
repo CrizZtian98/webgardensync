@@ -48,6 +48,11 @@
         font-size: 13px;
         border-radius: 8px;
         outline: none;
+        border: 2px solid rgb(231, 231, 231);
+    }
+
+    input:focus {
+        border-color: greenyellow;
     }
 
     input:hover{

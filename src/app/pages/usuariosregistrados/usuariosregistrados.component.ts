@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
 
 
 @Component({
@@ -33,7 +35,9 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,            // <- Para ngModel
     MatFormFieldModule,     // <- Para mat-form-field
     MatInputModule,         // <- Para input dentro de mat-form-field
-    MatSelectModule         // <- Para mat-select y mat-option
+    MatSelectModule,         // <- Para mat-select y mat-option
+    MatSnackBarModule,
+    SnackbarCustomComponent,     
   ],
   templateUrl: './usuariosregistrados.component.html',
   styleUrl: './usuariosregistrados.component.css'
@@ -45,9 +49,9 @@ export class UsuariosregistradosComponent implements OnInit{
   terminoBusqueda: string = '';
   filtroEstado: string = 'todos';
 
-  constructor(private firebaseService: FirebaseService,private auth: AuthService, private router: Router,) {}
+  constructor(private firebaseService: FirebaseService,private auth: AuthService, private router: Router, private snackBar: MatSnackBar) {}
     
-    async ngOnInit() {
+  async ngOnInit() {
     this.cargando = true;
     await this.obtenerUsuariosRegistrados();
     this.auth.getCurrentUser().subscribe((user) => {
@@ -76,10 +80,15 @@ export class UsuariosregistradosComponent implements OnInit{
   async banear(uid: string) {
     try {
       await this.firebaseService.banearUsuario(uid);
-      alert('Usuario baneado exitosamente');
+      this.mostrarSnack('Usuario baneado correctamente', 'error');
       this.obtenerUsuariosRegistrados(); // Refrescar lista
     } catch (error) {
-      console.error('Error al banear:', error);
+      this.snackBar.open('Error al banear usuario', 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['snackbar-error']
+      });
       alert('Error al banear usuario');
     }
   }
@@ -88,7 +97,7 @@ export class UsuariosregistradosComponent implements OnInit{
   async desbanear(uid: string) {
     try {
       await this.firebaseService.desbanearUsuario(uid);
-      alert('Usuario desbaneado correctamente');
+      this.mostrarSnack('Usuario desbaneado correctamente', 'exito');
       await this.obtenerUsuariosRegistrados(); // refresca lista
     } catch (error) {
       console.error(error);
@@ -110,5 +119,14 @@ export class UsuariosregistradosComponent implements OnInit{
     });
   }
 
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error') {
+    this.snackBar.openFromComponent(SnackbarCustomComponent, {
+      data: { mensaje, tipo },
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar']
+    });
+  }
 }
 
