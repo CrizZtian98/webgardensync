@@ -9,13 +9,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgFor, NgIf } from '@angular/common';
 import { FirebaseService } from '../../../firebase.service';
 import Swal from 'sweetalert2';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ RouterLink, HeaderComponent,FooterComponent,ReactiveFormsModule,
-    MatCardModule,FormsModule,MatProgressSpinnerModule,NgIf,NgFor
+    MatCardModule,FormsModule,MatProgressSpinnerModule,NgIf,NgFor,MatSnackBarModule,
+        SnackbarCustomComponent, 
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -28,7 +31,8 @@ export class LoginComponent implements OnInit{
   loginErrorMessage: string = '';        
   formularioLogin: FormGroup<{ correo: FormControl<string | null>; contrasena: FormControl<string | null>; }>;
 
-  constructor(private authService: AuthService,public fb: FormBuilder, private router: Router,private firebaseService: FirebaseService,) {
+  constructor(private authService: AuthService,public fb: FormBuilder, private router: Router,private firebaseService: FirebaseService,
+    private snackBar: MatSnackBar) {
 
     this.formularioLogin = this.fb.group({
       'correo': new FormControl("", [Validators.required, Validators.email]),
@@ -63,85 +67,88 @@ export class LoginComponent implements OnInit{
   }
 
 
-  async onLogin() {
-    if (!this.email || !this.password) {
-      alert('Por favor, ingresa un correo y una contraseña.');
-      return;
-    }
+async onLogin() {
+  if (!this.email || !this.password) {
+    this.mostrarSnack('Ingresa tus credenciales para iniciar sesión', 'info');
+    return;
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.email)) {
-      alert('El correo es inválido.');
-      return;
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(this.email)) {
+    this.mostrarSnack('El correo es inválido o inexistente', 'error');
+    return;
+  }
 
-    this.isLoading = true;
+  this.isLoading = true;
 
-    try {
-      const userCredential = await this.authService.login(this.email, this.password);
+  try {
+    const userCredential = await this.authService.login(this.email, this.password);
 
-      if (userCredential && userCredential.user) {
-        const uid = userCredential.user.uid;
+    if (userCredential && userCredential.user) {
+      const uid = userCredential.user.uid;
 
-        // ✅ Verificar si está baneado (Añadido recientemente)
-        const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
-
+      // ✅ Verificar si está baneado
+      const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
       if (estaBaneado) {
         Swal.fire({
           icon: 'error',
           title: 'Acceso denegado',
-          text: 'Tu cuenta ha sido baneada por lenguaje inapropiado.',
+          html: 'Tu cuenta ha sido baneada por lenguaje inapropiado.',
           confirmButtonColor: '#5d4037',
           confirmButtonText: 'Aceptar',
           color: '#388e3c',
-          background: 'rgb(9, 70, 9) url("https://sweetalert2.github.io/images/trees.png")',
+          background: 'white url("https://sweetalert2.github.io/images/trees.png")',
           customClass: {
             popup: 'mi-swal-popup',
             title: 'mi-swal-title',
-            htmlContainer: 'mi-swal-text', // ✅ Este reemplaza a 'text'
+            htmlContainer: 'mi-swal-text',
             confirmButton: 'mi-swal-button'
           }
         });
 
-
-
-          await this.authService.logout();
-          this.isLoading = false;
-          return;
+        await this.authService.logout();
+        this.isLoading = false;
+        return;
       }
 
+      // ✅ Obtener nombre del usuario
+      const datosUsuario: any = await this.firebaseService.obtenerDatosPersona();
+      const nombre = datosUsuario?.nombreCompleto || 'Usuario';
 
-        console.log('Usuario logueado:', userCredential.user);
-        this.router.navigate(['/']);
+      console.log('Usuario logueado:', userCredential.user);
+      this.mostrarSnack(`¡Bienvenido ${nombre}!`, 'saludo');
 
-      } else {
-        throw new Error('No se pudo autenticar el usuario.');
-      }
-    } catch (error: any) {
-      this.handleLoginError(error);
-    } finally {
-      this.isLoading = false;
+      this.router.navigate(['/']);
+    } else {
+      this.mostrarSnack('No se pudo autenticar el usuario', 'error');
+
     }
+  } catch (error: any) {
+    this.handleLoginError(error);
+  } finally {
+    this.isLoading = false;
   }
+}
+
 
 
   handleLoginError(error: any) {
     switch (error.code) {
       case 'auth/user-not-found':
-        alert('El usuario no existe.');
+          this.mostrarSnack('El usuario no existe', 'error');
         break;
       case 'auth/wrong-password':
-        alert('Contraseña incorrecta.');
+        this.mostrarSnack('Contraseña incorrecta', 'error');
         break;
       case 'auth/invalid-email':
-        alert('Correo inválido.');
+        this.mostrarSnack('Correo inválido', 'error');
         break;
       case 'auth/invalid-credential':
-      alert('El correo o la contraseña son inválidos.');
+        this.mostrarSnack('El correo o la contraseña son inválios', 'error');
         break;
 
       default:
-        alert('Error de login. Intenta nuevamente.');
+        this.mostrarSnack('Error de inicio de sesión, intenta nuevamente', 'error');
         console.error(error);
         break;
     }
@@ -157,14 +164,26 @@ export class LoginComponent implements OnInit{
   }
 
 
-    async cerrarSesion() {
-      try {
-        await this.authService.logout();
-        console.log('Sesión cerrada correctamente');
-        this.router.navigate(['/login']);
-      } catch (error) {
-        console.error('Error al cerrar sesión:', error);
-      }
+  async cerrarSesion() {
+    try {
+      await this.authService.logout();
+      console.log('Sesión cerrada correctamente');
+      this.mostrarSnack('Sesión cerrada, ¡Hasta luego!', 'cierre');
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
     }
+  }
+
+
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error' | 'info' | 'warning' | 'saludo' | 'cierre') {
+    this.snackBar.openFromComponent(SnackbarCustomComponent, {
+      data: { mensaje, tipo },
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar']
+    });
+  }
 
 }

@@ -1,4 +1,17 @@
 <div class="snackbar-container" [ngClass]="data.tipo">
+  <i class="fa-solid"
+     [ngClass]="{
+       'fa-circle-check': data.tipo === 'exito',
+       'fa-circle-xmark': data.tipo === 'error',
+       'fa-circle-info': data.tipo === 'info',
+       'fa-triangle-exclamation': data.tipo === 'warning',
+       'fa-face-smile': data.tipo === 'saludo',
+       'fa-lock': data.tipo === 'cierre'
+     }">
+  </i>
   <span>{{ data.mensaje }}</span>
-  <i class="fa-solid fa-circle-check"></i>
 </div>
+
+
+
+

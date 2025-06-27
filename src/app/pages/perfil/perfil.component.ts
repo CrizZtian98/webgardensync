@@ -11,13 +11,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgFor, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmarcierreComponent } from '../../components/confirmarcierre/confirmarcierre.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
 
 @Component({
   selector: 'app-perfil',
   
   standalone: true,
   imports: [RouterLink, HeaderComponent, FooterComponent,ReactiveFormsModule,
-      MatCardModule,FormsModule,MatListModule,MatProgressSpinnerModule,NgIf,NgFor,ConfirmarcierreComponent
+      MatCardModule,FormsModule,MatListModule,MatProgressSpinnerModule,NgIf,NgFor,ConfirmarcierreComponent,MatSnackBarModule,
+            SnackbarCustomComponent,
   ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css'
@@ -32,7 +35,9 @@ export class PerfilComponent {
   loadingCorreo = true;
   loadingHogar = true;
 
-  constructor(private firebaseService: FirebaseService, private router: Router, private authservice: AuthService,private dialog: MatDialog){}
+  constructor(private firebaseService: FirebaseService, private router: Router, private authservice: AuthService,private dialog: MatDialog
+    ,private snackBar: MatSnackBar
+  ){}
 
   async ngOnInit() {
     this.cargarDatosPerfil();
@@ -85,11 +90,22 @@ export class PerfilComponent {
         try {
           await this.authservice.logout();
           console.log('Sesión cerrada correctamente');
+          this.mostrarSnack('Sesión cerrada, ¡Hasta luego!', 'cierre');
           this.router.navigate(['/login']);
         } catch (error) {
           console.error('Error al cerrar sesión:', error);
         }
       }
+    });
+  }
+
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error' | 'info' | 'warning' | 'saludo' | 'cierre') {
+    this.snackBar.openFromComponent(SnackbarCustomComponent, {
+      data: { mensaje, tipo },
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar']
     });
   }
 }
