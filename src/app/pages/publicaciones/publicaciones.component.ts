@@ -33,6 +33,7 @@ export class PublicacionesComponent{
   textoPublicacion = '';
   esAnonimo = false;
   terminoBusqueda = '';
+  publicando = false;
 
   constructor(
     private firebaseService: FirebaseService, private auth: AuthService, private router: Router,private snackBar: MatSnackBar
@@ -56,9 +57,18 @@ export class PublicacionesComponent{
   async crearPublicacion() {
     if (!this.textoPublicacion.trim()) return;
 
-    await this.firebaseService.crearPublicacion(this.textoPublicacion);
-    this.textoPublicacion = '';
-    await this.cargarPublicaciones();
+    this.publicando = true;
+
+    try {
+      await this.firebaseService.crearPublicacion(this.textoPublicacion);
+      this.textoPublicacion = '';
+      await this.cargarPublicaciones();
+    } catch (error) {
+      console.error('Error al crear la publicación:', error);
+    } finally {
+      this.publicando = false;
+      this.mostrarSnack('Publicación subida', 'exito');
+    }
   }
 
   async cargarPublicaciones() {
@@ -128,7 +138,7 @@ export class PublicacionesComponent{
     );
   }
 
-  mostrarSnack(mensaje: string, tipo: 'exito' | 'error') {
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error' | 'info' | 'warning' | 'saludo' | 'cierre') {
     this.snackBar.openFromComponent(SnackbarCustomComponent, {
       data: { mensaje, tipo },
       duration: 3000,

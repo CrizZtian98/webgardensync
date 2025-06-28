@@ -1,11 +1,31 @@
 <app-header></app-header>
-
   <div class="contenido-superior">
     <i class="fa-solid fa-comments"></i>
     <p>Publicaciones dentro de la aplicación:</p>
   </div>
 
   <div class="filtros">
+    <div class="publicacion">
+      <label for="buscador"><i class="fa-solid fa-comment-dots" id="publicar-algo"></i> ¿Deseas publicar algo?:</label>
+      <input type="text" [(ngModel)]="textoPublicacion" placeholder="Escribir publicación" class="input-buscador"/>
+      <button [disabled]="publicando" (click)="crearPublicacion()">
+        <ng-container *ngIf="publicando; else iconoPublicar">
+          <span class="spinner-text">Publicando...</span>
+          <mat-progress-spinner
+            class="spinner-publicando"
+            mode="indeterminate"
+            diameter="15"
+            strokeWidth="3"
+            color="primary"
+            style="display: inline-block; vertical-align: middle;">
+          </mat-progress-spinner>
+        </ng-container>
+        <ng-template #iconoPublicar>
+          Publicar <i class="fa-solid fa-paper-plane"></i>
+        </ng-template>
+      </button>
+    </div>
+      
     <div class="">
       <label for="buscador">Buscar publicación:</label>
       <input type="text" [(ngModel)]="terminoBusqueda" placeholder="Por nombre de usuario" class="input-buscador"/>
@@ -53,5 +73,4 @@
       </mat-grid-list>
     </mat-card>
   </div>
-
 <app-footer></app-footer>

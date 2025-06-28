@@ -100,6 +100,26 @@ app-root {
     stroke: white;
 }
 
+.spinner-comentando circle{
+  stroke: white;
+}
+
+.publicacion{
+  .spinner-publicando circle{
+    stroke: black;
+  }
+
+  button:hover{
+    .spinner-publicando circle{
+      stroke: white;
+    }
+  }
+}
+
+
+
+
+
 .contenido-cerrar-sesion{
     h2{
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

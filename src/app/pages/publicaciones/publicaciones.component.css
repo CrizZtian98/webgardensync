@@ -141,7 +141,6 @@ button[mat-icon-button] {
 .filtros {
     display: flex;
     justify-content: center;
-    align-items: center;
     color: white;
     gap: 1rem;
     padding: 1rem;
@@ -149,7 +148,43 @@ button[mat-icon-button] {
     border-radius: 10px;
     margin-top: -3rem;
     margin-bottom: 2rem;
+    flex-direction: row;
+
+}
+
+.publicacion{
+    display: flex;
+    flex-direction: row;
+    display: grid;
+    align-items: start;
+    justify-content: start;
+    font-size: clamp(.7rem, 2vw, .9rem);
+    button{
+        display: flex;
+        background: white;
+        border: none;
+        color: black;
+        font-size: clamp(.7rem, 2vw, .9rem);
+        margin-right: 9rem;
+        margin-top: .5rem;
+        padding: 0.2rem;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-radius: 3px;
+        transition: transform 0.3s;
+    }
+
+    button:hover{
+        background-color: rgb(0, 171, 0);
+        color: white;
+        transform: translateY(-2px);
+    }
+}
+
+.nombreUsuario{
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: start;
 }
 
 .filtros label{
@@ -181,4 +216,8 @@ button[mat-icon-button] {
 .input-buscador::placeholder {
   color: rgb(201, 201, 201);
   opacity: 1; /* Asegura que el color sea sólido */
+}
+
+.spinner-publicando{
+    margin-left: .1rem;
 }

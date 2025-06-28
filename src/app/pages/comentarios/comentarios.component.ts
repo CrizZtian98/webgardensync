@@ -12,6 +12,7 @@ import { FirebaseService } from '../../../firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-comentarios',
@@ -29,6 +30,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     SnackbarCustomComponent, 
+    FormsModule,
   ],
   templateUrl: './comentarios.component.html',
   styleUrl: './comentarios.component.css'
@@ -39,6 +41,8 @@ export class ComentariosComponent {
   cargandoComentarios: boolean = false;
   comentarios: any[] = [];
   menuMap: any = {};
+  comentarioEnviando = false;
+
 
   constructor(
     private firebaseService: FirebaseService,
@@ -66,10 +70,19 @@ export class ComentariosComponent {
 
   async enviarComentario() {
     if (!this.nuevoComentario.trim()) return;
-
-    await this.firebaseService.comentar(this.publicacion.id, this.nuevoComentario);
-    this.nuevoComentario = '';
-    await this.cargarComentarios();
+    
+    this.comentarioEnviando = true;
+    
+    try {
+      await this.firebaseService.comentar(this.publicacion.id, this.nuevoComentario);
+      this.nuevoComentario = '';
+      await this.cargarComentarios();
+    } catch (error) {
+      console.error('Error al enviar comentario:', error);
+    } finally {
+      this.comentarioEnviando = false;
+      this.mostrarSnack('Comentario subido ', 'exito');
+    }
   }
 
   async like() {
@@ -110,7 +123,7 @@ export class ComentariosComponent {
     }
   }
 
-  mostrarSnack(mensaje: string, tipo: 'exito' | 'error') {
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error' | 'info' | 'warning' | 'saludo' | 'cierre') {
     this.snackBar.openFromComponent(SnackbarCustomComponent, {
       data: { mensaje, tipo },
       duration: 3000,

@@ -27,11 +27,31 @@
             </mat-card-content>
         </div>
         <p class="titulo">Comentarios:</p>
+        <div class="comentario-container">
+            <input [(ngModel)]="nuevoComentario" type="text" placeholder="Escribe un comentario..." />
+            <button [disabled]="comentarioEnviando" (click)="enviarComentario()">
+            <ng-container *ngIf="comentarioEnviando; else iconoEnviar">
+                <span class="spinner-text">Comentando...</span>
+                <mat-progress-spinner 
+                    class="spinner-comentando"
+                    mode="indeterminate"
+                    diameter="15"
+                    strokeWidth="3"
+                    color="primary"
+                    style="display: inline-block; vertical-align: middle;">
+                </mat-progress-spinner>
+            </ng-container>
+            <ng-template #iconoEnviar>
+                Comentar <i class="fa-solid fa-paper-plane"></i>
+            </ng-template>
+            </button>
+        </div>
+
         <div *ngIf="cargandoComentarios" class="spinner-container">
             <span class="spinner-text">Cargando comentarios...</span>
             <mat-progress-spinner
                 class="spinner-comentarios"
-                diameter="30"
+                diameter="20"
                 mode="indeterminate"
                 color="primary">
             </mat-progress-spinner>

@@ -98,7 +98,7 @@ button[mat-icon-button] {
 }
 
 .card-comentarios{
-    margin-top: 2rem;
+    margin-top: 1rem;
     background-color: transparent;
 }
 
@@ -107,6 +107,7 @@ button[mat-icon-button] {
     margin-left: 1rem;
     color: rgb(219, 219, 219);   
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(.7rem, 2vw, 1rem);
 }
 
 .header-comentarios{
@@ -178,4 +179,55 @@ button[mat-icon-button] {
         color: white;
         margin-right: .5rem;
     }
+}
+
+.comentario-container{
+    display: flex;
+    margin: .4rem;
+    flex-direction: row;
+    align-items: center;
+    input{
+        background-color: transparent;
+        color: white;
+        border: none;
+        width: 77%;
+        padding: .5rem;
+        font-size: clamp(.7rem, 2vw, .8rem);
+    }
+
+    input:focus{
+        color: white;
+    }
+
+    input::placeholder{
+        color: rgba(255, 255, 255, 0.629);
+    }
+
+    button{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
+        padding: .5rem;
+        background-color: transparent;
+        border: none;
+        color: white;
+        border-radius: 3px;
+        margin-left: 1rem;
+        font-size: clamp(.6rem, 2vw, .8rem);
+    }
+
+    button:hover{
+        background-color: rgb(18, 161, 18);
+        color: white;
+    }
+}
+
+.spinner-container{
+    font-size: clamp(.7rem, 2vw, .8rem);
+
+    .spinner-comentarios{
+        font-size: clamp(.6rem, 2vw, .9rem);
+    }
+}
+
+.spinner-comentando{
+    margin-left: .1rem;
 }

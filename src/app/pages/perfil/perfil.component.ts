@@ -90,7 +90,7 @@ export class PerfilComponent {
         try {
           await this.authservice.logout();
           console.log('Sesión cerrada correctamente');
-          this.mostrarSnack('Sesión cerrada, ¡Hasta luego!', 'cierre');
+          this.mostrarSnack('Sesión cerrada. ¡Hasta luego!', 'cierre');
           this.router.navigate(['/login']);
         } catch (error) {
           console.error('Error al cerrar sesión:', error);
