@@ -116,7 +116,7 @@ async onLogin() {
       const nombre = datosUsuario?.nombreCompleto || 'Usuario';
 
       console.log('Usuario logueado:', userCredential.user);
-      this.mostrarSnack(`¡Bienvenido ${nombre}!`, 'saludo');
+      this.mostrarSnack(`¡Hola de nuevo "${nombre}"!`, 'saludo');
 
       this.router.navigate(['/']);
     } else {

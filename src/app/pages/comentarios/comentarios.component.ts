@@ -102,7 +102,7 @@ export class ComentariosComponent {
     if (!confirm('¿Seguro que quieres eliminar esta publicación?')) return;
     try {
       await this.firebaseService.eliminarPublicacion(this.publicacion.id);
-      this.mostrarSnack('Publicación eliminada correctamente', 'error');
+      this.mostrarSnack('Publicación eliminada correctamente', 'exito');
       this.router.navigate(['/publicaciones']);
     } catch (error) {
       alert('Error al eliminar la publicación');
@@ -115,7 +115,7 @@ export class ComentariosComponent {
     if (!confirm('¿Seguro que quieres eliminar este comentario?')) return;
     try {
       await this.firebaseService.eliminarComentario(this.publicacion.id, idComentario);
-      this.mostrarSnack('Comentario eliminado correctamente', 'error');
+      this.mostrarSnack('Comentario eliminado correctamente', 'exito');
       await this.cargarComentarios();
     } catch (error) {
       alert('Error al eliminar el comentario');
