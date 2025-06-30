@@ -80,7 +80,7 @@ export class UsuariosregistradosComponent implements OnInit{
   async banear(uid: string) {
     try {
       await this.firebaseService.banearUsuario(uid);
-      this.mostrarSnack('Usuario baneado correctamente', 'error');
+      this.mostrarSnack('Usuario baneado correctamente', 'exito');
       this.obtenerUsuariosRegistrados(); // Refrescar lista
     } catch (error) {
       this.snackBar.open('Error al banear usuario', 'Cerrar', {
@@ -119,7 +119,7 @@ export class UsuariosregistradosComponent implements OnInit{
     });
   }
 
-  mostrarSnack(mensaje: string, tipo: 'exito' | 'error') {
+  mostrarSnack(mensaje: string, tipo: 'exito' | 'error' | 'info' | 'warning' | 'saludo' | 'cierre') {
     this.snackBar.openFromComponent(SnackbarCustomComponent, {
       data: { mensaje, tipo },
       duration: 3000,
@@ -128,5 +128,5 @@ export class UsuariosregistradosComponent implements OnInit{
       panelClass: ['custom-snackbar']
     });
   }
-}
 
+}

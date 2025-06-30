@@ -118,7 +118,7 @@ export class ComentariosComponent {
       this.mostrarSnack('Comentario eliminado correctamente', 'exito');
       await this.cargarComentarios();
     } catch (error) {
-      alert('Error al eliminar el comentario');
+      this.mostrarSnack('Error al eliminar comentario', 'error');
       console.error(error);
     }
   }

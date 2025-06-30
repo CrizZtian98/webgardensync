@@ -342,5 +342,60 @@ async obtenerPublicaciones() {
     await deleteDoc(comentarioRef);
   }
 
+  // ✅ Método para actualizar el nombre
+  async actualizarNombreUsuario(uid: string, nuevoNombre: string) {
+    await this.ensureInitialized();
+    const userRef = doc(this.db, 'Personas', uid);
+    await updateDoc(userRef, { nombreCompleto: nuevoNombre });
+  }
+
+  async actualizarNombreEnPublicaciones(nuevoNombre: string) {
+    await this.ensureInitialized();
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('Usuario no autenticado');
+
+    const publicacionesRef = collection(this.db, 'Publicaciones');
+    const publicacionesSnap = await getDocs(publicacionesRef);
+
+    const publicacionesUsuario = publicacionesSnap.docs.filter(doc => doc.data()['uidPersona'] === user.uid);
+
+    const actualizaciones = publicacionesUsuario.map(publiDoc => {
+      const publiRef = doc(this.db, 'Publicaciones', publiDoc.id);
+      return updateDoc(publiRef, { nombre: nuevoNombre });
+    });
+
+    await Promise.all(actualizaciones);
+    console.log('Nombres actualizados en publicaciones');
+  }
+
+  async actualizarNombreEnComentarios(nuevoNombre: string) {
+    await this.ensureInitialized();
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('Usuario no autenticado');
+
+    const publicacionesRef = collection(this.db, 'Publicaciones');
+    const publicacionesSnap = await getDocs(publicacionesRef);
+
+    const promesas = publicacionesSnap.docs.map(async (publiDoc) => {
+      const comentariosRef = collection(this.db, `Publicaciones/${publiDoc.id}/Comentarios`);
+      const comentariosSnap = await getDocs(comentariosRef);
+
+      const comentariosUsuario = comentariosSnap.docs.filter(doc => doc.data()['uidPersona'] === user.uid);
+
+      const actualizaciones = comentariosUsuario.map(comDoc => {
+        const comRef = doc(this.db, `Publicaciones/${publiDoc.id}/Comentarios/${comDoc.id}`);
+        return updateDoc(comRef, { nombre: nuevoNombre });
+      });
+
+      return Promise.all(actualizaciones);
+    });
+
+    await Promise.all(promesas);
+    console.log('Nombres actualizados en comentarios');
+  }
+
+
+
+
 
 }

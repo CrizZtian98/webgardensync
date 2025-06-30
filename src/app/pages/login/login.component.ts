@@ -93,7 +93,7 @@ async onLogin() {
         Swal.fire({
           icon: 'error',
           title: 'Acceso denegado',
-          html: 'Tu cuenta ha sido baneada por lenguaje inapropiado.',
+          html: 'Tu cuenta ha sido baneada por incumplir las normas de convivencia.',
           confirmButtonColor: '#5d4037',
           confirmButtonText: 'Aceptar',
           color: '#388e3c',

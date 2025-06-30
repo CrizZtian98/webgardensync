@@ -1,0 +1,72 @@
+<app-header></app-header>
+  <div class="contenedor">
+    <mat-card class="card">
+      <mat-card-header class="card-header">
+        <mat-card-title >Actualizar contraseña</mat-card-title>
+        <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
+      </mat-card-header>
+      <mat-card-content class="contenido">
+        <form class="formulario" [formGroup]="formularioActualizarClave" (keyup.enter)="ActualizarClave()"> 
+            <input formControlName="claveActual" type="password" placeholder="Contraseña actual">
+                <div *ngIf="claveActual?.invalid && (claveActual?.touched || submitted)" class="error-message">
+                    <div class="obligatorio" *ngIf="claveActual?.errors?.['required']">
+                        *La contraseña actual es obligatoria.
+                    </div>
+                    <div class="obligatorio" *ngIf="claveActual?.errors?.['pattern']">
+                        *La contraseña debe contener al menos una mayúscula, un número y un carácter especial.
+                    </div>
+                    <div class="obligatorio" *ngIf="claveActual?.errors?.['minlength']">
+                        *La contraseña debe tener al menos 8 caracteres.
+                    </div>
+                </div>
+
+            <input formControlName="nuevaClave" type="password" placeholder="Nueva contraseña">
+                <div *ngIf="nuevaClave?.invalid && (nuevaClave?.touched || submitted)" class="error-message">
+                    <div class="obligatorio" *ngIf="nuevaClave?.errors?.['required']">
+                        *La contraseña nueva es obligatoria.
+                    </div>
+                    <div class="obligatorio" *ngIf="nuevaClave?.errors?.['pattern']">
+                        *La contraseña debe contener al menos una mayúscula, un número y un carácter especial.
+                    </div>
+                    <div class="obligatorio" *ngIf="nuevaClave?.errors?.['minlength']">
+                        *La contraseña debe tener al menos 8 caracteres.
+                    </div>
+                </div>
+
+            <input formControlName="confirmarNuevaClave" type="password" placeholder="Confirmar contraseña">
+                <div *ngIf="confirmarNuevaClave?.invalid && (confirmarNuevaClave?.touched || submitted)" class="error-message">
+                    <div *ngIf="confirmarNuevaClave?.errors?.['required']">
+                        *Confirmar la contraseña es obligatorio.
+                    </div>
+                    <div class="coincidencia" *ngIf="confirmarNuevaClave?.errors?.['noCoincide']">
+                        *Las contraseñas no coinciden.
+                    </div>
+                </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="boton-container">
+        <button class="boton" (click)="ActualizarClave()" mat-button [disabled]="isLoading">
+          <ng-container *ngIf="!isLoading; else cargando">
+            Actualizar clave
+          </ng-container>
+          <ng-template #cargando>
+            <div class="spinner-actualizarClave-container">
+              <span class="spinner-text">Actualizando contraseña... </span>
+              <mat-progress-spinner
+                class="spinner-actualizarClave"
+                diameter="18"
+                mode="indeterminate"
+                color="primary"
+                strokeWidth="3"
+                style="display: inline-block; vertical-align: middle;">
+              </mat-progress-spinner>
+            </div>
+          </ng-template>
+        </button>
+        <button class="volverPerfil">
+            <a (click)="volverPerfil()"><i class="fa-solid fa-left-long" id="atrasPerfil"></i> Volver al perfil</a>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+<app-footer></app-footer>

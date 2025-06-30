@@ -62,6 +62,12 @@
         font-size: 13px;
         border-radius: 8px;
         outline: none;
+        border: 2px solid rgb(231, 231, 231);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    input:focus {
+        border-color: greenyellow;
     }
 
     input:hover{
@@ -84,8 +90,9 @@
     a{
         margin-left: 0.5rem;
         text-decoration: none;
-        color: rgb(30, 226, 30);
+        color: white;
         transition: transform 0.3s;
+        font-size: clamp(.8rem, 2vw, 1rem);
     }
 
     a:hover{
@@ -98,7 +105,7 @@
     background-color: rgb(0, 128, 0);
     color: #fff;
     font-size: 12px;
-    padding: 10px 45px;
+    padding: .5rem 1.1rem .5rem 1.1rem;
     border: 1px solid transparent;
     border-radius: 8px;
     font-weight: 600;
@@ -173,23 +180,79 @@ mat-list{
   margin: .5rem; /* Centra horizontalmente */
 }
 
+.spinner-actualizarNombre{
+    
+}
+
 .botonEdit{
     transition: transform 0.3s;
-    cursor: pointer;
 }
 
 .botonEdit:hover{
     transform: translateY(-3px);
 }
 
-.actualizarClave{
-    transition: transform 0.3s;
+.volverPerfil{
     cursor: pointer;
+    transition: transform 0.3s;
+    background: transparent;
+    border: none;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-left: -1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.actualizarClave:hover{
+.volverPerfil:hover{
+    color: rgb(134, 199, 37);
     transform: translateY(-3px);
-    a:hover{
-        color: rgb(90, 132, 27);
-    }
+}
+
+.error-message {
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-top: -1rem;
+    margin-left: -3.7rem;
+    text-align: start;
+    text-shadow:
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
+}
+
+.error-message small {
+    font-weight: bold;
+}
+
+.error-nombre{
+    text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-left: 8.5rem;
+    margin-right: 5rem;
+    text-align: start;
+    text-shadow:
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
+}
+
+.obligatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    margin-left: 5rem;
+    width: 13.7rem;
+}
+
+.coincidencia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    margin-left: 3.5rem;
+    width: 13.7rem;
 }

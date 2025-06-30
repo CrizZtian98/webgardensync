@@ -148,6 +148,4 @@ export class PublicacionesComponent{
     });
   }
 
-
-
 }

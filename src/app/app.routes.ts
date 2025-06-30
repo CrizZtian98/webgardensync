@@ -11,6 +11,8 @@ import { Prueba1Component } from './pages/prueba1/prueba1.component';
 import { Prueba2Component } from './components/prueba2/prueba2.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ActualizarclaveComponent } from './pages/actualizarclave/actualizarclave.component';
+import { ActualizarnombreComponent } from './pages/actualizarnombre/actualizarnombre.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -23,6 +25,7 @@ export const routes: Routes = [
     {path: 'modalpublicacion', component: ModalpublicacionComponent},
     {path: 'prueba1', component: Prueba1Component},
     {path: 'prueba2', component: Prueba2Component},
-    {path: 'comentarios', component: ComentariosComponent}
-
+    {path: 'comentarios', component: ComentariosComponent},
+    {path: 'actualizarnombre', component: ActualizarnombreComponent},
+    {path: 'actualizarclave', component: ActualizarclaveComponent}
 ];

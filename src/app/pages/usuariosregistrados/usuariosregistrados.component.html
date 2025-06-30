@@ -1,36 +1,36 @@
 <app-header></app-header>
-    <div class="contenido-superior">
-        <i class="fa-solid fa-users"></i>
-        <p>Usuarios registrados:</p>
+  <div class="contenido-superior">
+      <i class="fa-solid fa-users"></i>
+      <p>Usuarios registrados:</p>
+  </div>
+  <div class="filtros">
+    <!-- Buscador -->
+    <div class="input-container">
+      <label for="buscador"><i class="fa-solid fa-magnifying-glass"></i> Buscar usuario:</label>
+      <input
+        id="buscador"
+        type="text"
+        [(ngModel)]="terminoBusqueda"
+        placeholder="Ingrese nombre"
+      />
     </div>
-<div class="filtros">
-  <!-- Buscador -->
-  <div class="input-container">
-    <label for="buscador">Buscar usuario:</label>
-    <input
-      id="buscador"
-      type="text"
-      [(ngModel)]="terminoBusqueda"
-      placeholder="Ingrese nombre"
-    />
+
+    <!-- Filtro de estado -->
+    <div class="select-container">
+      <label for="filtro"><i class="fa-solid fa-filter"></i> Estado:</label>
+      <select id="filtro" [(ngModel)]="filtroEstado">
+        <option value="todos">Todos</option>
+        <option value="baneados">Baneados</option>
+        <option value="noBaneados">No Baneados</option>
+      </select>
+    </div>
   </div>
 
-  <!-- Filtro de estado -->
-  <div class="select-container">
-    <label for="filtro">Estado:</label>
-    <select id="filtro" [(ngModel)]="filtroEstado">
-      <option value="todos">Todos</option>
-      <option value="baneados">Baneados</option>
-      <option value="noBaneados">No Baneados</option>
-    </select>
+
+  <div *ngIf="cargando" class="spinner-container">
+      <mat-progress-spinner class="spinner-usuarios" diameter="40" mode="indeterminate" color="primary"></mat-progress-spinner>
+      <p id="textoCarga">Cargando usuarios...</p>
   </div>
-</div>
-
-
-    <div *ngIf="cargando" class="spinner-container">
-        <mat-progress-spinner class="spinner-usuarios" diameter="40" mode="indeterminate" color="primary"></mat-progress-spinner>
-        <p id="textoCarga">Cargando usuarios...</p>
-    </div>
 
   <div class="contenedor">
     <mat-card class="card" *ngFor="let usuario of usuariosFiltrados()">
@@ -51,8 +51,6 @@
             <i class="fa-solid fa-user-check"></i> Desbanear usuario
         </button>
         </mat-menu>
-
-
 
         <mat-card-header class="card-header">
             <p class="id">ID: {{ usuario.id }}</p>

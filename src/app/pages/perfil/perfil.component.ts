@@ -108,4 +108,12 @@ export class PerfilComponent {
       panelClass: ['custom-snackbar']
     });
   }
+
+  actualizarNombre(){
+    this.router.navigate(['/actualizarnombre']);
+  }
+
+  actualizarClave(){
+    this.router.navigate(['/actualizarclave']);
+  }
 }

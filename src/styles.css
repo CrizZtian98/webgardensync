@@ -104,6 +104,14 @@ app-root {
   stroke: white;
 }
 
+.spinner-actualizarNombre circle{
+  stroke: white;
+}
+
+.spinner-actualizarClave circle{
+  stroke: white;
+}
+
 .publicacion{
   .spinner-publicando circle{
     stroke: black;

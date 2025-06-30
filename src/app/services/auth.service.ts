@@ -45,6 +45,12 @@ export class AuthService {
     });
   }
 
+
+    // ✅ Nuevo método: Obtener usuario actual directo
+  async obtenerUsuarioActual(): Promise<User | null> {
+    return this.auth.currentUser;
+  }
+
   // Cerrar sesión
   logout() {
     return this.auth.signOut();

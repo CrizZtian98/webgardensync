@@ -5,11 +5,13 @@ div{
 .snackbar-container {
     display: flex;
     align-items: center;
-    color: white;
+    color: black;
     font-weight: bold;
     padding: 12px 24px ;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    
     i{
         margin-left: .5rem;
         font-size: 1.5rem;
@@ -23,11 +25,12 @@ div{
   text-align: center;
   justify-content: center;
   background-color: white !important; /* Verde */
-  color: #4caf50 ;
+  
   border-radius: 8px;
-  box-shadow: 0 4px 8px #4caf50 !important;
+  box-shadow: 0px 0px 4px 2px #4caf50 !important;
 
   i{
+    color: #4caf50 ;
     margin-right: .5rem;
     font-size: 1.5rem;
   }
@@ -40,8 +43,7 @@ div{
   background-color: white !important;
   color: red;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(144, 11, 11, 0.907) !important;
-
+  box-shadow: 0px 0px 2px 1px red !important;
   i{
     margin-right: .5rem;
     font-size: 1.5rem;
@@ -52,11 +54,11 @@ div{
   display: flex;
   text-align: center;
   background-color: white !important;
-  color: red;
   border-radius: 8px;
-  box-shadow: 0px 0px 6px 2px rgba(144, 11, 11, 0.907) !important;
+  box-shadow: 0px 0px 2px 1px red !important;
 
   i{
+    color: red;
     margin-right: .5rem;
     font-size: 1.5rem;
   }
@@ -68,12 +70,13 @@ div{
   text-align: center;
   justify-content: center;
   background-color: white !important; /* Verde */
-  color: #4caf50 ;
+  
   border-radius: 8px;
   border: #4caf50 !important;
   box-shadow: 0px 0px 6px 2px #4caf50 !important;
 
   i{
+    color: #4caf50 ;
     margin-right: .5rem;
     font-size: 1.5rem;
   }
@@ -84,12 +87,13 @@ div{
   text-align: center;
   justify-content: center;
   background-color: white !important; /* Verde */
-  color: #4caf50 ;
+  
   border-radius: 8px;
   border: #4caf50 !important;
   box-shadow: 0px 0px 6px 2px #4caf50 !important;
 
   i{
+    color: #4caf50 ;
     margin-right: .5rem;
     font-size: 1rem;
   }
