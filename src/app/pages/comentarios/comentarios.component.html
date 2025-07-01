@@ -10,7 +10,7 @@
                 <i class="fa-solid fa-exclamation" id="exclamacion"></i>
             </button>
 
-            <mat-menu #menu1="matMenu">
+            <mat-menu class="matMenu" #menu1="matMenu">
                 <button mat-menu-item (click)="eliminarPublicacion()">
                 <i class="fa-solid fa-trash"></i> Eliminar publicacion
                 </button>
@@ -62,7 +62,7 @@
                     <button mat-icon-button [matMenuTriggerFor]="menuuu">
                         <i class="fa-solid fa-exclamation" id="exclamacion"></i>
                     </button>
-                    <mat-menu #menuuu="matMenu">
+                    <mat-menu class="matMenu" #menuuu="matMenu">
                         <button mat-menu-item (click)="eliminarComentario(comentario.id)">
                         <i class="fa-solid fa-trash"></i> Eliminar comentario
                         </button>

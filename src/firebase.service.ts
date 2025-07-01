@@ -4,7 +4,7 @@ import { FirebaseInitService } from './firebase-init.service';  // Importa el se
 import { createUserWithEmailAndPassword, Auth, EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { FirebaseStorage } from 'firebase/storage';
-
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -395,7 +395,40 @@ async obtenerPublicaciones() {
   }
 
 
+  async verificarCorreoExisteEnBaseDeDatos(correo: string): Promise<boolean> {
+    await this.ensureInitialized();
+    const personasRef = collection(this.db, 'Personas');
+    const snapshot = await getDocs(personasRef);
+    const existe = snapshot.docs.some(doc => {
+      const data = doc.data();
+      return data['correo'] === correo;
+    });
+    return existe;
+  }
 
+
+
+  async enviarCorreoRecuperacion(correo: string) {
+    await this.ensureInitialized();
+
+    try {
+      await sendPasswordResetEmail(this.auth, correo, {
+        url: 'http://localhost:4200/nueva-clave' // 🔥 Cambia a tu URL real
+      });
+
+      return { success: true, message: 'Se envió el correo de recuperación' };
+
+    } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
+        return { success: false, message: 'El correo no está registrado' };
+      } else if (error.code === 'auth/invalid-email') {
+        return { success: false, message: 'El correo es inválido' };
+      } else {
+        console.error('Error al enviar correo de recuperación:', error);
+        return { success: false, message: 'Ocurrió un error inesperado' };
+      }
+    }
+  }
 
 
 }

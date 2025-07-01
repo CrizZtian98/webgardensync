@@ -186,4 +186,7 @@ async onLogin() {
     });
   }
 
+  verificarCorreo(){
+    this.router.navigate(['/verificar-correo']);
+  }
 }

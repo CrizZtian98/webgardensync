@@ -116,4 +116,6 @@ export class PerfilComponent {
   actualizarClave(){
     this.router.navigate(['/actualizarclave']);
   }
+
+
 }

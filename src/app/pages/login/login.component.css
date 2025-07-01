@@ -82,6 +82,18 @@
         color: rgb(134, 199, 37);
         transform: translateY(-3px);
     }
+
+    .olvidasteContrasena{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: rgb(157, 248, 20);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: .8rem;
+    }
+    
+    .olvidasteContrasena:hover{
+        color: rgb(0, 207, 0);
+    }
 }
 
 .boton{

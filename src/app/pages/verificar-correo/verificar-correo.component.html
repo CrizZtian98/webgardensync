@@ -1,0 +1,48 @@
+<app-header></app-header>
+    <div class="contenedor">
+        <mat-card class="card">
+            <mat-card-header class="card-header">
+                <mat-card-title >Verificar correo electrónico</mat-card-title>
+                <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
+            </mat-card-header>
+
+            <mat-card-content class="contenido">
+                <form class="formulario" [formGroup]="formularioCorreo" (keyup.enter)="verificarCorreo()">
+                    <p>Recibirás un correo electrónico en tu bandeja de entrada para cambiar tu contraseña</p>
+                    <input formControlName="correo" type="email" placeholder="Correo electrónico" required>
+                    <div *ngIf="correo?.invalid && (correo?.touched || submitted)" class="error-message">
+                        <div *ngIf="correo?.errors?.['required']" class="correo-obligatorio">
+                        El correo es obligatorio.
+                        </div>
+                        <div *ngIf="correo?.errors?.['pattern']">
+                        El correo debe ser válido.
+                        </div>
+                    </div>   
+                </form>
+            </mat-card-content>
+            <mat-card-actions class="boton-container">
+                <button class="boton" (click)="verificarCorreo()" mat-button [disabled]="isLoading">
+                    <ng-container *ngIf="!isLoading; else cargando">
+                        Verificar
+                    </ng-container>
+                    <ng-template #cargando>
+                        <div class="spinner-verificar-correo-container">
+                        <span class="spinner-text">Verificando...</span>
+                        <mat-progress-spinner
+                            class="spinner-verificar-correo"
+                            diameter="18"
+                            mode="indeterminate"
+                            color="primary"
+                            strokeWidth="3"
+                            style="display: inline-block; vertical-align: middle;">
+                        </mat-progress-spinner>
+                        </div>
+                    </ng-template>
+                </button>
+                <button class="volverLogin">
+                    <a (click)="volverLogin()"><i class="fa-solid fa-left-long" id="atrasPerfil"></i> Volver al inicio</a>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+<app-footer></app-footer>

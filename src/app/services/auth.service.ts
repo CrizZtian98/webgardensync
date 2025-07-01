@@ -10,6 +10,10 @@ export class AuthService {
 
   constructor(private auth: Auth) {}
 
+  get authInstance(): Auth {
+    return this.auth;
+  }
+
   // Iniciar sesión con correo y contraseña
   async login(email: string, password: string) {
     return await signInWithEmailAndPassword(this.auth, email, password);

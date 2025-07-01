@@ -203,3 +203,7 @@ app-root {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+.matMenu{
+  background-color: rgba(0, 0, 0, 0.763) !important;
+}

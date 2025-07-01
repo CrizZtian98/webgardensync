@@ -12,6 +12,7 @@
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">
+        <a class="olvidasteContrasena" (click)="verificarCorreo()">¿Olvidaste tu contraseña?</a>
         <button class="boton" (click)="onLogin()" mat-button [disabled]="isLoading">
           <ng-container *ngIf="!isLoading; else cargando">Iniciar sesión</ng-container>
             <ng-template  #cargando>
