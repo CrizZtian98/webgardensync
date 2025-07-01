@@ -15,14 +15,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmareliminacionComponent } from '../../components/confirmareliminacion/confirmareliminacion.component';
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
   imports: [ HeaderComponent, FooterComponent, MatCardModule, MatMenuModule,
             MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule,MatProgressSpinnerModule,FormsModule,
-                MatSnackBarModule,SnackbarCustomComponent
+            MatSnackBarModule,SnackbarCustomComponent,ConfirmareliminacionComponent,MatDialogModule,
           ],
   templateUrl: './publicaciones.component.html',
   styleUrl: './publicaciones.component.css'
@@ -36,7 +38,7 @@ export class PublicacionesComponent{
   publicando = false;
 
   constructor(
-    private firebaseService: FirebaseService, private auth: AuthService, private router: Router,private snackBar: MatSnackBar
+    private firebaseService: FirebaseService, private auth: AuthService, private router: Router,private snackBar: MatSnackBar,private dialog: MatDialog
   ) {}
 
 
@@ -112,20 +114,30 @@ export class PublicacionesComponent{
     }
   }
 
-  async eliminarPublicacion(id: string) {
-  const confirmacion = confirm('¿Estás seguro de eliminar esta publicación?');
+async eliminarPublicacion(id: string) {
+  const dialogRef = this.dialog.open(ConfirmareliminacionComponent, {
+    width: '300px',
+    data: { 
+      mensaje: '¿Seguro que quieres eliminar esta publicación?', 
+      textoBoton: 'Eliminar',
+      colorBoton: 'warn'  
+    }
+  });
 
-    if (confirmacion) {
-      try {
-        await this.firebaseService.eliminarPublicacion(id);
-        console.log('Publicación eliminada');
-        this.mostrarSnack('Publicación eliminada correctamente', 'exito');
-        await this.cargarPublicaciones();
-      } catch (error) {
-        console.error('Error al eliminar la publicación:', error);
-      }
+  const confirmado = await dialogRef.afterClosed().toPromise();
+
+  if (confirmado) {
+    try {
+      await this.firebaseService.eliminarPublicacion(id);
+      this.mostrarSnack('Publicación eliminada correctamente', 'exito');
+      await this.cargarPublicaciones();
+    } catch (error) {
+      console.error('Error al eliminar la publicación:', error);
+      this.mostrarSnack('Error al eliminar la publicación', 'error');
     }
   }
+}
+
 
 
   get publicacionesFiltradas() {

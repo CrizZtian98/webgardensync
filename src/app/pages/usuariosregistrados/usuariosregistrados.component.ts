@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmareliminacionComponent } from '../../components/confirmareliminacion/confirmareliminacion.component';
 
 
 @Component({
@@ -37,7 +39,8 @@ import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackb
     MatInputModule,         // <- Para input dentro de mat-form-field
     MatSelectModule,         // <- Para mat-select y mat-option
     MatSnackBarModule,
-    SnackbarCustomComponent,     
+    SnackbarCustomComponent,   
+    ConfirmareliminacionComponent  
   ],
   templateUrl: './usuariosregistrados.component.html',
   styleUrl: './usuariosregistrados.component.css'
@@ -49,7 +52,9 @@ export class UsuariosregistradosComponent implements OnInit{
   terminoBusqueda: string = '';
   filtroEstado: string = 'todos';
 
-  constructor(private firebaseService: FirebaseService,private auth: AuthService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private firebaseService: FirebaseService,private auth: AuthService, private router: Router, private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
     
   async ngOnInit() {
     this.cargando = true;
@@ -77,33 +82,56 @@ export class UsuariosregistradosComponent implements OnInit{
   }  
 
   //Añadido recientemente
-  async banear(uid: string) {
+async banear(uid: string) {
+  const dialogRef = this.dialog.open(ConfirmareliminacionComponent, {
+    width: '300px',
+    data: { 
+      mensaje: '¿Seguro que quieres banear a este usuario?', 
+      textoBoton: 'Banear',
+      colorBoton: 'warn'  // rojo para borrar o banear
+    }
+  });
+
+
+  const confirmado = await dialogRef.afterClosed().toPromise();
+
+  if (confirmado) {
     try {
       await this.firebaseService.banearUsuario(uid);
       this.mostrarSnack('Usuario baneado correctamente', 'exito');
-      this.obtenerUsuariosRegistrados(); // Refrescar lista
+      await this.obtenerUsuariosRegistrados();
     } catch (error) {
-      this.snackBar.open('Error al banear usuario', 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        panelClass: ['snackbar-error']
-      });
-      alert('Error al banear usuario');
+      this.mostrarSnack('Error al banear usuario', 'error');
+      console.error(error);
     }
   }
+}
 
-  //Añadido recientemente
-  async desbanear(uid: string) {
+async desbanear(uid: string) {
+  const dialogRef = this.dialog.open(ConfirmareliminacionComponent, {
+    width: '300px',
+    data: { 
+      mensaje: '¿Seguro que quieres desbanear a este usuario?', 
+      textoBoton: 'Desbanear',
+      colorBoton: 'primary'  // azul, por ejemplo
+    }
+  });
+
+
+  const confirmado = await dialogRef.afterClosed().toPromise();
+
+  if (confirmado) {
     try {
       await this.firebaseService.desbanearUsuario(uid);
       this.mostrarSnack('Usuario desbaneado correctamente', 'exito');
-      await this.obtenerUsuariosRegistrados(); // refresca lista
+      await this.obtenerUsuariosRegistrados();
     } catch (error) {
+      this.mostrarSnack('Error al desbanear usuario', 'error');
       console.error(error);
-      alert('Error al desbanear usuario');
     }
   }
+}
+
 
   //Añadido recientemente
   usuariosFiltrados() {

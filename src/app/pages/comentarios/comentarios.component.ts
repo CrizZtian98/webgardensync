@@ -13,6 +13,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackbar-custom.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmareliminacionComponent } from '../../components/confirmareliminacion/confirmareliminacion.component';
+
 
 @Component({
   selector: 'app-comentarios',
@@ -31,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule,
     SnackbarCustomComponent, 
     FormsModule,
+    ConfirmareliminacionComponent
   ],
   templateUrl: './comentarios.component.html',
   styleUrl: './comentarios.component.css'
@@ -46,7 +50,7 @@ export class ComentariosComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    private router: Router, private snackBar: MatSnackBar
+    private router: Router, private snackBar: MatSnackBar,private dialog: MatDialog
   ) {}
 
   async ngOnInit() {
@@ -98,21 +102,45 @@ export class ComentariosComponent {
   }
 
   //Implementado recientemente
-  async eliminarPublicacion() {
-    if (!confirm('¿Seguro que quieres eliminar esta publicación?')) return;
+async eliminarPublicacion() {
+  const dialogRef = this.dialog.open(ConfirmareliminacionComponent, {
+    width: '300px',
+    data: { 
+      mensaje: '¿Seguro que quieres eliminar esta publicación?', 
+      textoBoton: 'Eliminar',
+      colorBoton: 'warn'  
+    }
+  });
+
+
+  const confirmado = await dialogRef.afterClosed().toPromise();
+
+  if (confirmado) {
     try {
       await this.firebaseService.eliminarPublicacion(this.publicacion.id);
       this.mostrarSnack('Publicación eliminada correctamente', 'exito');
       this.router.navigate(['/publicaciones']);
     } catch (error) {
-      alert('Error al eliminar la publicación');
+      this.mostrarSnack('Error al eliminar la publicación', 'error');
       console.error(error);
     }
   }
+}
 
-  //Implementado recientemente
-  async eliminarComentario(idComentario: string) {
-    if (!confirm('¿Seguro que quieres eliminar este comentario?')) return;
+async eliminarComentario(idComentario: string) {
+  const dialogRef = this.dialog.open(ConfirmareliminacionComponent, {
+    width: '300px',
+    data: { 
+      mensaje: '¿Seguro que quieres eliminar este comentario?', 
+      textoBoton: 'Eliminar',
+      colorBoton: 'warn'  
+    }
+  });
+
+
+  const confirmado = await dialogRef.afterClosed().toPromise();
+
+  if (confirmado) {
     try {
       await this.firebaseService.eliminarComentario(this.publicacion.id, idComentario);
       this.mostrarSnack('Comentario eliminado correctamente', 'exito');
@@ -122,6 +150,8 @@ export class ComentariosComponent {
       console.error(error);
     }
   }
+}
+
 
   mostrarSnack(mensaje: string, tipo: 'exito' | 'error' | 'info' | 'warning' | 'saludo' | 'cierre') {
     this.snackBar.openFromComponent(SnackbarCustomComponent, {

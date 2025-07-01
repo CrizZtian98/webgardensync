@@ -207,3 +207,27 @@ app-root {
 .matMenu{
   background-color: rgba(0, 0, 0, 0.763) !important;
 }
+
+
+/* Por defecto (en todas las páginas) */
+
+
+/* ✅ Cuando esté en la página nueva-clave */
+body.nueva-clave .logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10vw; /* 10% del ancho de la ventana */
+  height: auto; /* para mantener proporción */
+  display: block;
+  max-width: 8rem; /* no crezca más de esto */
+  min-width: 6rem; /* no sea más pequeño que esto */
+}
+
+body.nueva-clave .header{
+  padding: 3.5rem;
+}
+
+
+

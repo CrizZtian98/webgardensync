@@ -1,27 +1,30 @@
 <header class="header">
-    <nav>
-        <ul class="nav-list">
-            <li>
-                <a class="link" (click)="perfil()">
-                    <i class="fa-solid fa-user"></i>
-                </a>
-            </li>
-            <li>
-                <a routerLink="/" class="link">Home</a>
-            </li>
+  <nav>
+    <ul class="nav-list">
+      <li *ngIf="!ocultarBotones">
+        <a class="link" (click)="perfil()">
+          <i class="fa-solid fa-user"></i>
+        </a>
+      </li>
+      <li *ngIf="!ocultarBotones">
+        <a routerLink="/" class="link">Home</a>
+      </li>
 
-            <div class="contenedor-perfil">
-                <div id="botones">
-                    <a (click)="usuarios()" class="link">Usuarios</a> 
-                </div>
-                 <div id="botones">
-                    <a (click)="publicaciones()" class="link">Publicaciones</a>
-                 </div>  
-            </div>
-        </ul>
-        <div>            
-            <img class="logo" src="icons/logo3.png" alt="">
+      <div class="contenedor-perfil" *ngIf="!ocultarBotones">
+        <div id="botones">
+          <a (click)="usuarios()" class="link">Usuarios</a>
         </div>
-    </nav>
+        <div id="botones">
+          <a (click)="publicaciones()" class="link">Publicaciones</a>
+        </div>
+      </div>
+    </ul>
+
+    <div class="contenedor-logo">
+      <img class="logo" src="icons/logo3.png" alt="logo">
+    </div>
+  </nav>
 </header>
+
+
 
