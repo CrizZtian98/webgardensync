@@ -117,5 +117,8 @@ export class PerfilComponent {
     this.router.navigate(['/actualizarclave']);
   }
 
+  actualizarHogar(){
+    this.router.navigate(['/actualizar-hogar']);
+  }
 
 }

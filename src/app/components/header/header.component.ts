@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { filter } from 'rxjs/operators';
@@ -7,22 +7,38 @@ import { NgFor, NgIf } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,NgIf,NgFor],
+  imports: [RouterLink, NgIf, NgFor],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   ocultarBotones: boolean = false;
+  mostrarBotonesAdmin: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
     // Detectar cambios en la ruta
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Si la ruta incluye "nueva-clave", oculta los botones
         this.ocultarBotones = event.url.includes('/nueva-clave');
       }
     });
+  }
+
+  ngOnInit() {
+    this.verificarSiEsAdmin();
+  }
+
+  async verificarSiEsAdmin() {
+    const user = await this.authService.obtenerUsuarioActual();
+    if (user && user.email === 'gardensync01@gmail.com') {
+      this.mostrarBotonesAdmin = true;
+    } else {
+      this.mostrarBotonesAdmin = false;
+    }
   }
 
   perfil() {
@@ -37,4 +53,5 @@ export class HeaderComponent {
     this.router.navigate(['/publicaciones']);
   }
 }
+
 

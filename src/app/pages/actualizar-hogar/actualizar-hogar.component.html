@@ -1,0 +1,47 @@
+<app-header></app-header>
+  <div class="contenedor">
+    <mat-card class="card">
+      <mat-card-header class="card-header">
+        <mat-card-title >Actualizar nombre del hogar</mat-card-title>
+        <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
+      </mat-card-header>
+      <mat-card-content class="contenido">
+        <form class="formulario" [formGroup]="formularioActualizarHogar" (keyup.enter)="actualizarHogar()"> 
+          <i class="fa-solid fa-house" id="logoHogar"></i>
+          <input formControlName="hogar" type="text" placeholder="Actualizar hogar">
+          <div *ngIf="hogar?.invalid && (hogar?.touched || submitted)" class="error-message">
+            <div class="hogar-obligatorio" *ngIf="hogar?.errors?.['required']">
+              El hogar es obligatorio.
+            </div>
+            <div *ngIf="hogar?.errors?.['minlength']" class="error-hogar">
+              El hogar debe tener un mínimo de 6 caracteres.
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="boton-container">
+        <button class="boton" (click)="actualizarHogar()" mat-button [disabled]="isLoading">
+          <ng-container *ngIf="!isLoading; else cargando">
+            Actualizar hogar
+          </ng-container>
+          <ng-template #cargando>
+            <div class="spinner-actualizarHogar-container">
+              <span class="spinner-text">Actualizando hogar... </span>
+              <mat-progress-spinner
+                class="spinner-actualizarHogar"
+                diameter="18"
+                mode="indeterminate"
+                color="primary"
+                strokeWidth="3"
+                style="display: inline-block; vertical-align: middle;">
+              </mat-progress-spinner>
+            </div>
+          </ng-template>
+        </button>
+        <button class="volverPerfil">
+            <a (click)="volverPerfil()"><i class="fa-solid fa-left-long" id="atrasPerfil"></i> Volver al perfil</a>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+<app-footer></app-footer>

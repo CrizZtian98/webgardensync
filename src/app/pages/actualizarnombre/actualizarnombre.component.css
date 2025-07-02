@@ -45,6 +45,13 @@
     #logoPerfil{
         margin-left: 3rem;
     }
+
+}
+
+#logoPersona{
+    margin-top: .5rem;
+    color: white;
+    font-size: clamp(1.5rem, 2vw, 10rem);
 }
 
 .formulario{
@@ -229,7 +236,7 @@ mat-list{
     text-align: start;
     color: rgb(251, 251, 251);
     font-size: 13px;
-    margin-left: 8.5rem;
+    margin-left: 9rem;
     margin-right: 5rem;
     text-align: start;
     text-shadow:
@@ -238,4 +245,19 @@ mat-list{
         -.3px  .3px 0 red,
         .3px  .3px 0 red;
 }
+
+.nombre-obligatorio{
+        text-align: start;
+    color: rgb(251, 251, 251);
+    font-size: 13px;
+    margin-left: 6rem;
+    margin-right: 5rem;
+    text-align: start;
+    text-shadow:
+        -.3px -.3px 0 red,
+        .3px -.3px 0 red,
+        -.3px  .3px 0 red,
+        .3px  .3px 0 red;
+}
+
 

@@ -15,6 +15,7 @@ import { ActualizarclaveComponent } from './pages/actualizarclave/actualizarclav
 import { ActualizarnombreComponent } from './pages/actualizarnombre/actualizarnombre.component';
 import { VerificarCorreoComponent } from './pages/verificar-correo/verificar-correo.component';
 import { NuevaClaveComponent } from './pages/nueva-clave/nueva-clave.component';
+import { ActualizarHogarComponent } from './pages/actualizar-hogar/actualizar-hogar.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -31,5 +32,6 @@ export const routes: Routes = [
     {path: 'actualizarnombre', component: ActualizarnombreComponent},
     {path: 'actualizarclave', component: ActualizarclaveComponent},
     {path: 'verificar-correo', component: VerificarCorreoComponent},
-    {path: 'nueva-clave', component: NuevaClaveComponent}
+    {path: 'nueva-clave', component: NuevaClaveComponent},
+    {path: 'actualizar-hogar', component: ActualizarHogarComponent}
 ];

@@ -6,17 +6,17 @@
         <!--<mat-card-subtitle >Subtítulo</mat-card-subtitle>-->
       </mat-card-header>
       <mat-card-content class="contenido">
-        <form class="formulario" [formGroup]="formularioActualizarNombre" (keyup.enter)="ActualizarNombre()"> 
-          <!--<p>Crea tu cuenta para ser parte de nosotros</p>-->
-          <input formControlName="nombre" type="text" placeholder="Actualizar nombre">
-          <div *ngIf="nombre?.invalid && (nombre?.touched || submitted)" class="error-message">
-            <div *ngIf="nombre?.errors?.['required']">
-              El nombre es obligatorio.
+        <form class="formulario" [formGroup]="formularioActualizarNombre" (keyup.enter)="ActualizarNombre()">
+            <i class="fa-solid fa-user" id="logoPersona"></i>
+            <input formControlName="nombre" type="text" placeholder="Actualizar nombre">
+            <div *ngIf="nombre?.invalid && (nombre?.touched || submitted)" class="error-message">
+              <div class="nombre-obligatorio" *ngIf="nombre?.errors?.['required']">
+                El nombre es obligatorio.
+              </div>
+              <div *ngIf="nombre?.errors?.['minlength']" class="error-nombre">
+                El nombre debe tener un mínimo de 6 caracteres.
+              </div>
             </div>
-            <div *ngIf="nombre?.errors?.['minlength']" class="error-nombre">
-              El nombre debe tener un mínimo de 6 caracteres.
-            </div>
-          </div>
         </form>
       </mat-card-content>
       <mat-card-actions class="boton-container">

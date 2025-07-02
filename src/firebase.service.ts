@@ -430,5 +430,13 @@ async obtenerPublicaciones() {
     }
   }
 
+  async actualizarNombreHogar(idHogar: string, nuevoNombre: string) {
+    await this.ensureInitialized();
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('Usuario no autenticado');
+
+    const hogarRef = doc(this.db, `Personas/${user.uid}/Hogares/${idHogar}`);
+    await updateDoc(hogarRef, { nombreHogar: nuevoNombre });
+  }
 
 }
