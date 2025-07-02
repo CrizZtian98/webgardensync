@@ -144,7 +144,7 @@ async onLogin() {
         this.mostrarSnack('Correo inválido', 'error');
         break;
       case 'auth/invalid-credential':
-        this.mostrarSnack('El correo o la contraseña son inválios', 'error');
+        this.mostrarSnack('El correo o la contraseña son inválidos', 'error');
         break;
 
       default:

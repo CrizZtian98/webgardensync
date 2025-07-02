@@ -1,10 +1,14 @@
 <app-header></app-header>
 <div class="contenedor">
-    <p class="superior">Sección de comentarios</p>
+    <div class="contenido-superior">
+        <i class="fa-solid fa-comments"></i>
+        <p>Sección de comentarios</p>
+    </div>
     <mat-card class="card" *ngIf="publicacion">
         <div>
             <button class="cerrar" (click)="cerrar()">
-                <i class="fa-solid fa-chevron-up"></i>
+                <i class="fa-solid fa-comment"></i>
+                <i class="fa-solid fa-chevron-up" id="flecha"></i>
             </button>
             <button class="botonBan" mat-icon-button [matMenuTriggerFor]="menu1">
                 <i class="fa-solid fa-exclamation" id="exclamacion"></i>

@@ -14,6 +14,9 @@
     font-size: clamp(14px, 2vw, 20px);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-decoration:underline;
+    i{
+       font-size: clamp(1.5rem, 2vw, 2.5rem);
+    }
 }
 
 .card{
@@ -150,6 +153,7 @@ button[mat-icon-button] {
 }
 
 .cerrar{
+    display: flex;
     position: absolute;
     color:white;
     background-color: transparent;
@@ -158,6 +162,11 @@ button[mat-icon-button] {
     right: 5rem;
     font-size: clamp(15px, 2vw, 25px);
     transition: transform 0.3s;
+    /*flex-direction: column;*/
+
+    #flecha{
+       font-size: clamp(.8rem, 2vw, 1rem); 
+    }
 }
 
 .cerrar:hover{
@@ -168,6 +177,7 @@ button[mat-icon-button] {
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: clamp(15px, 2vw, 25px);
+    text-decoration: underline;
 }
 
 .spinner-container{
@@ -230,4 +240,35 @@ button[mat-icon-button] {
 
 .spinner-comentando{
     margin-left: .1rem;
+}
+
+.btn-like {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(14px, 2vw, 18px);
+  color: white;
+  transition: color 0.3s;
+}
+
+.btn-dislike {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(14px, 2vw, 18px);
+  color: white;
+  transition: color 0.3s;
+}
+
+.btn-like.activo-like {
+  color: #2196f3; /* Azul */
+}
+
+.btn-dislike.activo-dislike {
+  color: #e53935; /* Rojo */
+}
+
+.btn-like:hover,
+.btn-dislike:hover {
+  transform: scale(1.1);
 }

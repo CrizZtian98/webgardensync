@@ -1,6 +1,6 @@
 <app-header></app-header>
   <div class="contenido-superior">
-    <i class="fa-solid fa-comments"></i>
+    <i class="fa-solid fa-comment"></i>
     <p>Publicaciones dentro de la aplicación:</p>
   </div>
 
@@ -41,6 +41,10 @@
   <div class="contenedor" *ngIf="!cargando">
     <mat-card class="card" *ngFor="let publi of publicacionesFiltradas">
       <div>
+        <button class="abrir" (click)="abrirPost(publi)">
+          <i class="fa-solid fa-comments"></i>
+          <i class="fa-solid fa-chevron-down" id="flecha"></i>
+        </button>
         <button mat-icon-button [matMenuTriggerFor]="menu2">
           <i class="fa-solid fa-exclamation" id="exclamacion"></i>
         </button>
@@ -56,17 +60,23 @@
         </div>
         <mat-card-title>{{ publi.nombre }}</mat-card-title>
       </mat-card-header>
-      <mat-card-content class="contenido" (click)="abrirPost(publi)">
+      <mat-card-content class="contenido">
         <p>{{ publi.contenido }}</p>
       </mat-card-content>
       <mat-grid-list cols="3" rowHeight="100px">
         <mat-grid-tile>
-          <button class="btn-like" fill="clear" size="small" (click)="like(publi.id); $event.stopPropagation()">
+          <button 
+            class="btn-like" 
+            [ngClass]="{'activo-like': reaccionesUsuario[publi.id] === 'like'}" 
+            (click)="reaccionar(publi, 'like')">
             👍 {{ publi.likes || 0 }}
           </button>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button class="btn-dislike" fill="clear" size="small" (click)="dislike(publi.id); $event.stopPropagation()">
+          <button 
+            class="btn-dislike" 
+            [ngClass]="{'activo-dislike': reaccionesUsuario[publi.id] === 'dislike'}" 
+            (click)="reaccionar(publi, 'dislike')">
             👎 {{ publi.dislikes || 0 }}
           </button>
         </mat-grid-tile>

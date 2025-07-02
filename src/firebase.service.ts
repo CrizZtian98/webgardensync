@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, increment, query, orderBy, Firestore, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, increment, query, orderBy, Firestore, deleteDoc,runTransaction, } from 'firebase/firestore';
 import { FirebaseInitService } from './firebase-init.service';  // Importa el servicio
 import { createUserWithEmailAndPassword, Auth, EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
@@ -143,19 +143,81 @@ async obtenerPublicaciones() {
     return comentariosSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   }
 
-  async darLike(publicacionId: string) {
-    const publicacionRef = doc(this.db, `Publicaciones/${publicacionId}`);
-    await updateDoc(publicacionRef, {
-      likes: increment(1)
-    });
+  // 🔥 Método para reaccionar
+async reaccionar(publicacionId: string, tipo: 'like' | 'dislike') {
+  await this.ensureInitialized();
+  const user = this.auth.currentUser;
+  if (!user) throw new Error('Usuario no autenticado');
+
+  const reaccionRef = doc(this.db, `Publicaciones/${publicacionId}/Reacciones/${user.uid}`);
+  const publicacionRef = doc(this.db, `Publicaciones/${publicacionId}`);
+
+  await runTransaction(this.db, async (transaction) => {
+    const reaccionSnap = await transaction.get(reaccionRef);
+    const publicacionSnap = await transaction.get(publicacionRef);
+
+    if (!publicacionSnap.exists()) throw new Error('Publicación no encontrada');
+
+    let likeCount = publicacionSnap.data()?.['likes'] || 0;
+    let dislikeCount = publicacionSnap.data()?.['dislikes'] || 0;
+
+
+
+    if (reaccionSnap.exists()) {
+      const reaccionActual = reaccionSnap.data()['tipo'];
+
+      if (reaccionActual === tipo) {
+        // Quitar reacción
+        transaction.delete(reaccionRef);
+
+        if (tipo === 'like' && likeCount > 0) {
+          transaction.update(publicacionRef, { likes: likeCount - 1 });
+        }
+        if (tipo === 'dislike' && dislikeCount > 0) {
+          transaction.update(publicacionRef, { dislikes: dislikeCount - 1 });
+        }
+
+      } else {
+        // Cambiar de like a dislike o viceversa
+        transaction.update(reaccionRef, { tipo });
+
+        if (tipo === 'like') {
+          if (likeCount >= 0) transaction.update(publicacionRef, { likes: likeCount + 1 });
+          if (dislikeCount > 0) transaction.update(publicacionRef, { dislikes: dislikeCount - 1 });
+        } else {
+          if (dislikeCount >= 0) transaction.update(publicacionRef, { dislikes: dislikeCount + 1 });
+          if (likeCount > 0) transaction.update(publicacionRef, { likes: likeCount - 1 });
+        }
+      }
+    } else {
+      // Primera vez que reacciona
+      transaction.set(reaccionRef, { tipo });
+
+      if (tipo === 'like' && likeCount >= 0) {
+        transaction.update(publicacionRef, { likes: likeCount + 1 });
+      }
+      if (tipo === 'dislike' && dislikeCount >= 0) {
+        transaction.update(publicacionRef, { dislikes: dislikeCount + 1 });
+      }
+    }
+  });
+}
+
+  async obtenerReaccionUsuario(publicacionId: string): Promise<'like' | 'dislike' | null> {
+    await this.ensureInitialized();
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('Usuario no autenticado');
+
+    const reaccionRef = doc(this.db, `Publicaciones/${publicacionId}/Reacciones/${user.uid}`);
+    const reaccionSnap = await getDoc(reaccionRef);
+
+    if (reaccionSnap.exists()) {
+      return reaccionSnap.data()['tipo'] as 'like' | 'dislike';
+    } else {
+      return null;
+    }
   }
 
-  async darDislike(publicacionId: string) {
-    const publicacionRef = doc(this.db, `Publicaciones/${publicacionId}`);
-    await updateDoc(publicacionRef, {
-      dislikes: increment(1)
-    });
-  }
   // Agrega un hogar dentro de una persona
   async addHogar(idPersona: string, nombreHogar: string) {
     const hogaresRef = collection(this.db, `Personas/${idPersona}/Hogares`);

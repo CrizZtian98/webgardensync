@@ -49,11 +49,11 @@ export class ModalpublicacionComponent {
     await this.cargarComentarios();
   }
 
-  async like() {
+  /*async like() {
     await this.firebaseService.darLike(this.publicacion.id);
   }
 
   async dislike() {
     await this.firebaseService.darDislike(this.publicacion.id);
-  }
+  }*/
 }

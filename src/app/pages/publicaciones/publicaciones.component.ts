@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { FirebaseService } from '../../../firebase.service';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,13 +18,13 @@ import { SnackbarCustomComponent } from '../../components/snackbar-custom/snackb
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmareliminacionComponent } from '../../components/confirmareliminacion/confirmareliminacion.component';
-
+import { runTransaction, doc, increment } from 'firebase/firestore';
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
   imports: [ HeaderComponent, FooterComponent, MatCardModule, MatMenuModule,
             MatIconModule, MatButtonModule,NgIf,NgFor,MatGridListModule,MatProgressSpinnerModule,FormsModule,
-            MatSnackBarModule,SnackbarCustomComponent,ConfirmareliminacionComponent,MatDialogModule,
+            MatSnackBarModule,SnackbarCustomComponent,ConfirmareliminacionComponent,MatDialogModule,CommonModule,
           ],
   templateUrl: './publicaciones.component.html',
   styleUrl: './publicaciones.component.css'
@@ -36,6 +36,8 @@ export class PublicacionesComponent{
   esAnonimo = false;
   terminoBusqueda = '';
   publicando = false;
+  // Guarda la reacción del usuario para cada publicación (like, dislike o null)
+  reaccionesUsuario: { [idPublicacion: string]: 'like' | 'dislike' | null } = {};
 
   constructor(
     private firebaseService: FirebaseService, private auth: AuthService, private router: Router,private snackBar: MatSnackBar,private dialog: MatDialog
@@ -74,25 +76,48 @@ export class PublicacionesComponent{
   }
 
   async cargarPublicaciones() {
-    this.cargando = true;   // Arrancamos carga
+    this.cargando = true;
     try {
       this.publicaciones = await this.firebaseService.obtenerPublicaciones();
+
+      const user = await this.auth.obtenerUsuarioActual();
+      if (user) {
+        for (const publi of this.publicaciones) {
+          const reaccion = await this.firebaseService.obtenerReaccionUsuario(publi.id);
+          this.reaccionesUsuario[publi.id] = reaccion;
+        }
+      }
     } catch (error) {
       console.error('Error cargando publicaciones:', error);
     } finally {
-      this.cargando = false;  // Terminamos carga siempre
+      this.cargando = false;
     }
   }
 
-  async like(id: string) {
-    await this.firebaseService.darLike(id);
-    await this.cargarPublicaciones();
+
+  async reaccionar(publicacion: any, tipo: 'like' | 'dislike') {
+    try {
+      await this.firebaseService.reaccionar(publicacion.id, tipo);
+
+      // Actualiza solo esta publicación
+      const index = this.publicaciones.findIndex(p => p.id === publicacion.id);
+      if (index !== -1) {
+        const publicacionesActualizadas = await this.firebaseService.obtenerPublicaciones();
+        const publicacionActualizada = publicacionesActualizadas.find(p => p.id === publicacion.id);
+        if (publicacionActualizada) {
+          this.publicaciones[index] = publicacionActualizada;
+        }
+      }
+
+      // 🔥 Actualiza la reacción del usuario localmente
+      const reaccion = await this.firebaseService.obtenerReaccionUsuario(publicacion.id);
+      this.reaccionesUsuario[publicacion.id] = reaccion;
+    } catch (error) {
+      console.error('Error al reaccionar:', error);
+    }
   }
 
-  async dislike(id: string) {
-    await this.firebaseService.darDislike(id);
-    await this.cargarPublicaciones();
-  }
+
 
   comentar(){
     this.router.navigate(['modalpublicacion'])
@@ -158,6 +183,11 @@ async eliminarPublicacion(id: string) {
       verticalPosition: 'bottom',
       panelClass: ['custom-snackbar']
     });
+  }
+
+
+  abrir(){
+    this.router.navigate(['comentarios'])
   }
 
 }

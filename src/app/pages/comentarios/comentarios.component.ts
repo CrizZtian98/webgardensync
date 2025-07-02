@@ -89,13 +89,13 @@ export class ComentariosComponent {
     }
   }
 
-  async like() {
+  /*async like() {
     await this.firebaseService.darLike(this.publicacion.id);
   }
 
   async dislike() {
     await this.firebaseService.darDislike(this.publicacion.id);
-  }
+  }*/
 
   cerrar(){
     this.router.navigate(['publicaciones'])

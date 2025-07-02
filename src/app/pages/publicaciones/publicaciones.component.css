@@ -94,30 +94,37 @@ button[mat-icon-button] {
     height: 100%;
 }
 
-.btn-like{
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: clamp(15px, 2vw, 20px);
-    transition: transform 0.3s;
+.btn-like {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(14px, 2vw, 18px);
+  color: white;
+  transition: color 0.3s;
 }
 
-.btn-like:hover{
-    transform: translateY(-5px);
+.btn-dislike {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(14px, 2vw, 18px);
+  color: white;
+  transition: color 0.3s;
 }
 
-
-.btn-dislike{
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: clamp(15px, 2vw, 20px);
-    transition: transform 0.3s;
+.btn-like.activo-like {
+  color: #2196f3; /* Azul */
 }
 
-.btn-dislike:hover{
-    transform: translateY(-5px);
+.btn-dislike.activo-dislike {
+  color: #e53935; /* Rojo */
 }
+
+.btn-like:hover,
+.btn-dislike:hover {
+  transform: scale(1.1);
+}
+
 
 .spinner-container {
     display: flex;
@@ -220,4 +227,25 @@ button[mat-icon-button] {
 
 .spinner-publicando{
     margin-left: .1rem;
+}
+
+.abrir{
+    display: flex;
+    position: absolute;
+    color:white;
+    background-color: transparent;
+    border:none;
+    top: 20px;
+    right: 5rem;
+    font-size: clamp(15px, 2vw, 25px);
+    transition: transform 0.3s;
+    /*flex-direction: column;*/
+
+    #flecha{
+       font-size: clamp(.8rem, 2vw, 1rem);  
+    }
+}
+
+.abrir:hover{
+    transform: translateY(-5px);
 }
