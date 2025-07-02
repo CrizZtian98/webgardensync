@@ -88,7 +88,7 @@ async onLogin() {
       const uid = userCredential.user.uid;
 
       // ✅ Verificar si está baneado
-      const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
+      /*const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
       if (estaBaneado) {
         Swal.fire({
           icon: 'error',
@@ -109,7 +109,7 @@ async onLogin() {
         await this.authService.logout();
         this.isLoading = false;
         return;
-      }
+      }*/
 
       // ✅ Obtener nombre del usuario
       const datosUsuario: any = await this.firebaseService.obtenerDatosPersona();

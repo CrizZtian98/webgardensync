@@ -141,6 +141,7 @@ app-root {
   border-radius: 20px;
   border: 3px solid #5d4037;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  font-size: clamp(.6rem, 2vw, 1rem);
 }
 
 /* Título */
@@ -148,12 +149,14 @@ app-root {
   color: red;
   font-family: 'Segoe UI', sans-serif;
   font-weight: bold;
+  font-size: clamp(.2rem, 2vw, .3rem);
 }
 
 /* Texto */
 .mi-swal-text {
   color: #4e342e;
   font-family: 'Segoe UI', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
 }
 
 /* Botón */
