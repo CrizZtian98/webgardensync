@@ -148,7 +148,6 @@ async onLogin() {
         break;
 
       default:
-        this.mostrarSnack('Error de inicio de sesión, intenta nuevamente', 'error');
         console.error(error);
         break;
     }

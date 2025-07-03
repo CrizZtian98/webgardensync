@@ -138,10 +138,14 @@ app-root {
 
 /* Fondo del popup */
 .mi-swal-popup {
+  position: relative;
+  overflow: hidden;
   border-radius: 20px;
   border: 3px solid #5d4037;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   font-size: clamp(.6rem, 2vw, 1rem);
+  color: #388e3c;
+  background-color: #ffffff !important;
 }
 
 /* Título */
@@ -172,6 +176,11 @@ app-root {
 .mi-swal-button:hover {
   background-color: #6d4c41 !important;
 }
+
+
+
+
+
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   stroke: white;

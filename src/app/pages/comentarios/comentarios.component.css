@@ -232,7 +232,6 @@ button[mat-icon-button] {
 
 .spinner-container{
     font-size: clamp(.7rem, 2vw, .8rem);
-
     .spinner-comentarios{
         font-size: clamp(.6rem, 2vw, .9rem);
     }

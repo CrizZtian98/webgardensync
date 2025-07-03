@@ -135,7 +135,7 @@ button[mat-icon-button] {
     width: 300px;
     gap: 10px;
     color: #333;
-    background-color: rgba(0, 0, 0, 0.451);
+    background-color: rgba(0, 0, 0, 0.451) !important;
     margin: 0 auto; /* Esto centra horizontalmente */
     border-radius: 1rem;
 }

@@ -1,16 +1,16 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Auth, User, signInAnonymously, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Observable, Subscription } from 'rxjs';
-import { Firestore, doc, getDoc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, doc, onSnapshot } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnDestroy {
-  private banSubscription: (() => void) | null = null;
+  private unsubscribeBaneo: (() => void) | null = null;
 
   constructor(
     private auth: Auth,
@@ -22,21 +22,16 @@ export class AuthService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.banSubscription) {
-      this.banSubscription();
-    }
+    this.clearBaneoListener();
   }
 
-  // 🔥 Listener en tiempo real
-  monitorBaneo() {
+  // 🔥 Escucha en tiempo real el estado de baneo
+  private monitorBaneo() {
     this.auth.onAuthStateChanged((user) => {
-      if (user) {
-        // Escuchar cambios en el documento Firestore de este usuario
-        const userDocRef = doc(this.db, 'Personas', user.uid);
-        
-        // Limpia antes un listener previo si es necesario, para evitar duplicados
-        if (this.unsubscribeBaneo) this.unsubscribeBaneo();
+      this.clearBaneoListener();
 
+      if (user) {
+        const userDocRef = doc(this.db, 'Personas', user.uid);
         this.unsubscribeBaneo = onSnapshot(userDocRef, (docSnap) => {
           if (docSnap.exists()) {
             const data = docSnap.data();
@@ -48,7 +43,6 @@ export class AuthService implements OnDestroy {
                 confirmButtonColor: '#5d4037',
                 confirmButtonText: 'Aceptar',
                 color: '#388e3c',
-                background: 'white url("https://sweetalert2.github.io/images/trees.png")',
                 customClass: {
                   popup: 'mi-swal-popup',
                   title: 'mi-swal-title',
@@ -56,18 +50,23 @@ export class AuthService implements OnDestroy {
                   confirmButton: 'mi-swal-button'
                 }
               });
+
               this.logout();
               this.router.navigate(['/login']);
             }
           }
         });
-      } else {
-        // Usuario no logueado, limpia listener
-        if (this.unsubscribeBaneo) this.unsubscribeBaneo();
       }
     });
   }
-  private unsubscribeBaneo?: () => void;
+
+  // 🔥 Limpia el listener para evitar duplicados
+  private clearBaneoListener() {
+    if (this.unsubscribeBaneo) {
+      this.unsubscribeBaneo();
+      this.unsubscribeBaneo = null;
+    }
+  }
 
   get authInstance(): Auth {
     return this.auth;
@@ -108,14 +107,12 @@ export class AuthService implements OnDestroy {
     return this.auth.currentUser;
   }
 
-  logout() {
-    if (this.banSubscription) {
-      this.banSubscription(); // 🔥 Detiene el listener cuando cierra sesión
-      this.banSubscription = null;
-    }
-    return this.auth.signOut();
+  async logout() {
+    this.clearBaneoListener();
+    await this.auth.signOut();
   }
 }
+
 
 
 
