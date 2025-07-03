@@ -145,7 +145,7 @@ app-root {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   font-size: clamp(.6rem, 2vw, 1rem);
   color: #388e3c;
-  background-color: #ffffff !important;
+  background-color: #ffebeb !important;
 }
 
 /* Título */
@@ -159,7 +159,7 @@ app-root {
 /* Texto */
 .mi-swal-text {
   color: #4e342e;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: clamp(1rem, 2vw, 1.5rem);
 }
 

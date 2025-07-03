@@ -11,7 +11,7 @@
       </li>
 
       <!-- ✅ Mostrar solo si es admin -->
-      <div class="contenedor-perfil" *ngIf="!ocultarBotones ">
+      <div class="contenedor-perfil" *ngIf="!ocultarBotones && mostrarBotonesAdmin">
         <div id="botones">
           <a (click)="usuarios()" class="link">Usuarios</a>
         </div>

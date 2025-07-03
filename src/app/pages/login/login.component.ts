@@ -148,6 +148,7 @@ async onLogin() {
         break;
 
       default:
+        //this.mostrarSnack('No se pudo iniciar sesión', 'info');
         console.error(error);
         break;
     }
