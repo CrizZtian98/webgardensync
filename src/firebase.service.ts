@@ -502,16 +502,16 @@ async reaccionar(publicacionId: string, tipo: 'like' | 'dislike') {
   }
 
   async obtenerDatosPersonaConUid(uid: string) {
-  await this.ensureInitialized();
-  const docRef = doc(this.db, `Personas/${uid}`);
-  const docSnap = await getDoc(docRef);
+    await this.ensureInitialized();
+    const docRef = doc(this.db, `Personas/${uid}`);
+    const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-    return docSnap.data();
-  } else {
-    throw new Error('Datos de la persona no encontrados');
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      throw new Error('Datos de la persona no encontrados');
+    }
   }
-}
 
 
 }

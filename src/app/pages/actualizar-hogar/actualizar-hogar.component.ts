@@ -51,41 +51,64 @@ export class ActualizarHogarComponent implements OnInit {
     return this.formularioActualizarHogar.get('hogar');
   }
 
-  async cargarDatosHogar() {
-    try {
-      const datosHogar = await this.firebaseService.obtenerHogarUsuario();
+async cargarDatosHogar() {
+  try {
+    const datosHogar = await this.firebaseService.obtenerHogarUsuario();
+    if (datosHogar) {
       this.idHogar = datosHogar.id;
       this.formularioActualizarHogar.patchValue({
-        hogar: (datosHogar as any).nombreHogar
+        hogar: (datosHogar as any).nombreHogar || ''
       });
-
-    } catch (error) {
-      console.error('Error al cargar datos del hogar:', error);
-      this.mostrarSnack('Error al cargar datos del hogar', 'error');
+    } else {
+      // No hay hogar → no hacemos nada especial
+      this.idHogar = '';  // O null si prefieres
     }
+
+  } catch (error) {
+    console.warn('No se encontró hogar, puedes crear uno nuevo.');
+    this.idHogar = '';  // Asegúrate de limpiar el id
+  }
+}
+
+
+async actualizarHogar() {
+  this.submitted = true;
+
+  if (this.formularioActualizarHogar.invalid) {
+    this.mostrarSnack('El nombre del hogar es inválido.', 'warning');
+    return;
   }
 
-  async actualizarHogar() {
-    this.submitted = true;
+  this.isLoading = true;
+  const nuevoNombre = this.hogar?.value;
 
-    if (this.formularioActualizarHogar.invalid) {
-      return;
-    }
-
-    this.isLoading = true;
-    const nuevoNombre = this.hogar?.value;
-
-    try {
+  try {
+    if (this.idHogar) {
+      // Si ya hay un hogar, actualizarlo
       await this.firebaseService.actualizarNombreHogar(this.idHogar, nuevoNombre);
       this.mostrarSnack('Hogar actualizado con éxito', 'exito');
-      this.router.navigate(['/perfil']);
-    } catch (error) {
-      console.error('Error al actualizar hogar:', error);
-      this.mostrarSnack('Error al actualizar hogar', 'error');
-    } finally {
-      this.isLoading = false;
+    } else {
+      // Si no hay hogar, crearlo
+      const user = await this.firebaseService.obtenerDatosPersona();
+      const uid = this.firebaseService['auth'].currentUser?.uid;  // Obtenemos UID actual
+
+      if (!uid) throw new Error('Usuario no autenticado');
+
+      const nuevoHogarId = await this.firebaseService.addHogar(uid, nuevoNombre);
+      this.idHogar = nuevoHogarId;
+      this.mostrarSnack('Hogar creado con éxito', 'exito');
     }
+
+    this.router.navigate(['/perfil']);
+
+  } catch (error) {
+    console.error('Error al actualizar o crear hogar:', error);
+    this.mostrarSnack('Error al actualizar o crear hogar', 'error');
+  } finally {
+    this.isLoading = false;
   }
+}
+
 
   volverPerfil() {
     this.router.navigate(['/perfil']);
