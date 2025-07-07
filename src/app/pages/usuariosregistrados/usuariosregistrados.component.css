@@ -145,7 +145,7 @@ button[mat-icon-button] {
     color: blue;
 }
 
-.spinner-container {
+.spinner-container-usuarios {
     display: flex;
     flex-direction: column;
     align-items: center;

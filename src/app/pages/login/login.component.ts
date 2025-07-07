@@ -87,41 +87,16 @@ async onLogin() {
     if (userCredential && userCredential.user) {
       const uid = userCredential.user.uid;
 
-      // ✅ Verificar si está baneado
-      /*const estaBaneado = await this.firebaseService.verificarSiBaneado(uid);
-      if (estaBaneado) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Acceso denegado',
-          html: 'Tu cuenta ha sido baneada por incumplir las normas de convivencia.',
-          confirmButtonColor: '#5d4037',
-          confirmButtonText: 'Aceptar',
-          color: '#388e3c',
-          background: 'white url("https://sweetalert2.github.io/images/trees.png")',
-          customClass: {
-            popup: 'mi-swal-popup',
-            title: 'mi-swal-title',
-            htmlContainer: 'mi-swal-text',
-            confirmButton: 'mi-swal-button'
-          }
-        });
+      // ✅ Espera a que Firebase Auth se sincronice completamente
+      await new Promise(resolve => setTimeout(resolve, 1000));  // Pequeña pausa opcional de 0.5 segundos
 
-        await this.authService.logout();
-        this.isLoading = false;
-        return;
-      }*/
-
-      // ✅ Obtener nombre del usuario
-      const datosUsuario: any = await this.firebaseService.obtenerDatosPersona();
+      const datosUsuario: any = await this.firebaseService.obtenerDatosPersonaConUid(uid);
       const nombre = datosUsuario?.nombreCompleto || 'Usuario';
 
-      console.log('Usuario logueado:', userCredential.user);
       this.mostrarSnack(`¡Hola de nuevo "${nombre}"!`, 'saludo');
-
       this.router.navigate(['/']);
     } else {
       this.mostrarSnack('No se pudo autenticar el usuario', 'error');
-
     }
   } catch (error: any) {
     this.handleLoginError(error);
@@ -129,6 +104,7 @@ async onLogin() {
     this.isLoading = false;
   }
 }
+
 
 
 

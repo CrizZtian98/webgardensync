@@ -69,7 +69,7 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.378);
+  background: rgba(255, 255, 255, 0.378) !important;
   border-radius: 16px;
   padding: 2rem;
   width: 250px;
@@ -79,7 +79,7 @@
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 0px 10px 5px green;
+  box-shadow: 0px 0px 10px 5px green !important;
 }
 
 .card img {
@@ -100,7 +100,7 @@
 
 .how-it-works {
   padding: 3rem 2rem;
-  background: rgba(0, 0, 0, 0.477);
+  background: rgba(0, 0, 0, 0.477) !important;
   text-align: center;
 }
 
@@ -152,7 +152,7 @@
 .qr {
   display: block;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.516);
+  background-color: rgba(0, 0, 0, 0.516) !important;
   padding: 4rem 1rem;
   margin: 2rem auto;
   border-radius: 30px;

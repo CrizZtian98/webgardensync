@@ -501,4 +501,19 @@ async reaccionar(publicacionId: string, tipo: 'like' | 'dislike') {
     await updateDoc(hogarRef, { nombreHogar: nuevoNombre });
   }
 
+  async obtenerDatosPersonaConUid(uid: string) {
+  await this.ensureInitialized();
+  const docRef = doc(this.db, `Personas/${uid}`);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    throw new Error('Datos de la persona no encontrados');
+  }
 }
+
+
+}
+
+

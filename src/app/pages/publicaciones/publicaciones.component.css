@@ -126,7 +126,7 @@ button[mat-icon-button] {
 }
 
 
-.spinner-container {
+.spinner-container-publicaciones {
     display: flex;
     flex-direction: column;
     align-items: center;
